@@ -1,0 +1,46 @@
+@import "../../bower_components/bootstrap-sass/assets/stylesheets/bootstrap";
+@import "../../bower_components/bourbon/app/assets/stylesheets/bourbon";
+
+@import "utils/normalize.scss";
+
+$popup-size: 500px;
+
+body {
+    min-width: $popup-size;
+    margin: 8px;
+}
+
+
+.talk-list {
+    @include make-row();
+
+    ul {
+        @extend .list-unstyled;
+    }
+}
+
+.talk {
+    padding-top: 15px;
+
+    .talk-info {
+
+        @include make-xs-column(10);
+
+        .title {
+            font-size: 100%;
+            font-weight: bold;
+            display: block;
+        }
+
+        .info {
+            font-size: 80%;
+            display: block;
+            color: #717171;
+        }
+
+    }
+
+    .actions {
+        @include make-xs-column(2);
+    }
+}
