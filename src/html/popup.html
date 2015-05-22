@@ -1,0 +1,52 @@
+<!doctype html>
+<!--
+ This page is shown when the extension button is clicked, because the
+ "browser_action" field in manifest.json contains the "default_popup" key with
+ value "popup.html".
+ -->
+<html>
+  <head>
+    <title>Getting Started Extension's Popup</title>
+    <link rel="stylesheet" href="../../build/css/popup.css">
+    <link rel="stylesheet" href="../../build/css/font-awesome.css">
+
+
+    <!--
+      - JavaScript and HTML must be in separate files: see our Content Security
+      - Policy documentation[1] for details and explanation.
+      -
+      - [1]: https://developer.chrome.com/extensions/contentSecurityPolicy
+     -->
+    <script src="../js/popup.js"></script>
+  </head>
+  <body>
+      <h1>Your talks</h1>
+
+      <div class="talk-list">
+          <ul>
+
+              <li class="talk">
+                  <div class="talk-info">
+                      <span class="title">Composer The Right Way</span>
+                      <span class="info">lightning talk / beginner / 60 mins</span>
+                  </div>
+                  <div class="actions">
+                      <a class="btn btn-default" href="#"><i class="fa fa-pencil-square-o"></i></a>
+                  </div>
+              </li>
+
+              <li class="talk">
+                  <div class="talk-info">
+                      <span class="title">Writing code that lasts.. or code you won't hate tomorrow</span>
+                      <span class="info">keynote / beginner / 45 mins</span>
+                  </div>
+                  <div class="actions">
+                    <a class="btn btn-default href="#"><i class="fa fa-pencil-square-o"></i></a>
+                  </div>
+              </li>
+
+          </ul>
+      </div>
+
+  </body>
+</html>
