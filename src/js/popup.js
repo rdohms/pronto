@@ -1,6 +1,6 @@
 function click(e) {
     chrome.tabs.executeScript(null, { file: "build/js/jquery.min.js" }, function() {
-        chrome.tabs.executeScript(null, { file: "src/js/form.filler.js" });
+        chrome.tabs.executeScript(null, { file: "build/js/pronto.js" });
     });
 }
 
