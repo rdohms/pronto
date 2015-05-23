@@ -1,19 +1,21 @@
 {
-    "name": "dms-cfp",
-    "version": "0.1.0",
-    "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1"
-    },
-    "author": "Rafaem Dohms <rafael@doh.ms>",
-    "devDependencies": {
-        "del": "^1.1.1",
-        "gulp": "^3.8.11",
-        "gulp-bower": "0.0.10",
-        "gulp-minify-css": "^1.0.0",
-        "gulp-plumber": "^1.0.0",
-        "gulp-sass": "^1.3.3",
-        "gulp-sourcemaps": "^1.5.1",
-        "jquery.directive.js": "^1.0.1",
-        "merge-stream": "^0.1.7"
-    }
+  "name": "dms-cfp",
+  "version": "0.1.0",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Rafaem Dohms <rafael@doh.ms>",
+  "devDependencies": {
+    "del": "^1.1.1",
+    "gulp": "^3.8.11",
+    "gulp-babel": "^5.1.0",
+    "gulp-bower": "0.0.10",
+    "gulp-concat": "^2.5.2",
+    "gulp-minify-css": "^1.0.0",
+    "gulp-plumber": "^1.0.0",
+    "gulp-sass": "^1.3.3",
+    "gulp-sourcemaps": "^1.5.1",
+    "jquery.directive.js": "^1.0.1",
+    "merge-stream": "^0.1.7"
+  }
 }

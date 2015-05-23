@@ -1,6 +1,8 @@
 'use strict';
 
+var babel = require("gulp-babel");
 var bower = require('gulp-bower');
+var concat = require("gulp-concat");
 var del = require('del');
 var gulp = require('gulp');
 var merge = require('merge-stream');
@@ -52,7 +54,7 @@ gulp.task('watch', ['devmode', 'default'], function() {
 //  * JAVASCRIPT TASKS
 //  * ################################################################ */
 //
-gulp.task('build:js', ['copy:js']);
+gulp.task('build:js', ['copy:js', 'compile:js']);
 // gulp.task('build:js', ['lint:js', /* 'test:js', */ 'copy:js', 'bundle:js']);
 // gulp.task('lint:js', ['jscs', 'jshint']);
 // gulp.task('test:js', [/*'flow', */ 'mocha']);
@@ -68,6 +70,19 @@ gulp.task('copy:js', ['bower'], function () {
         './bower_components/bootstrap-sass/assets/javascripts/bootstrap.min.js'
     ]).pipe(gulp.dest('./build/js'));
 });
+
+gulp.task("compile:js", function () {
+    return gulp.src("src/js/*.js")
+        .pipe(plumber({
+            errorHandler: onError
+        }))
+        .pipe(sourcemaps.init())
+        .pipe(concat("pronto.js"))
+        .pipe(babel())
+        .pipe(sourcemaps.write("."))
+        .pipe(gulp.dest("build/js"));
+    });
+
 //
 //
 // gulp.task('bundle:js', ['bower', 'clean:js'], function () {

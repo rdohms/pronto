@@ -1,10 +1,13 @@
 
-var formHandler = {
+class FormHandler {
+    constructor() {
+        this.inputs = [];
+        this.gatherFormFields();
+    }
 
-    gatherFormFields: function () {
+    gatherFormFields() {
 
-        var $rawInputs = $(':input'),
-            $inputs = [];
+        var $rawInputs = $(':input');
 
         $rawInputs.each(function(i, input) {
         	var $input = $(input);
@@ -22,22 +25,17 @@ var formHandler = {
         	}
 
         	if ($label) {
-                console.log(formHandler.convertLabelToKeywords($label.text()));
-
-                $inputs.push({
+                this.inputs.push({
                     input: $input,
                     label: $label,
                     labelText: $label.text(),
-                    keywords: formHandler.convertLabelToKeywords($label.text())
+                    keywords: this.convertLabelToKeywords($label.text())
                 });
         	}
-        })
+        }.bind(this))
+    }
 
-        return $inputs;
-
-    },
-
-    convertLabelToKeywords: function (label) {
+    convertLabelToKeywords(label) {
         var keywords = label.split(/[(\s|/)+]/);
 
         keywords = keywords.map(
@@ -47,6 +45,35 @@ var formHandler = {
         return keywords;
     }
 
-};
+    fillField(name, value) {
 
-console.log(formHandler.gatherFormFields());
+        this.inputs.forEach(field => {
+            if (field.keywords.indexOf(name) != -1) {
+                field.input.val(value);
+            }
+        });
+
+    }
+
+    fillForm(data) {
+        for (var key in data) {
+            if (data.hasOwnProperty(key)) {
+                let val = data[key];
+
+                this.fillField(key, val);
+            }
+        }
+    }
+}
+
+var filler = new FormHandler();
+// filler.fillField('title', 'some title from symp');
+filler.fillForm({
+    title: "Composer the Right Way",
+    type: "seminar",
+    length: "60",
+    level: "beginner",
+    description: "this is my description or abstract",
+    outline: "this is the outline",
+    organizer_notes: "here are some notes"
+});
