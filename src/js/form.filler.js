@@ -1,15 +1,18 @@
 
 class FormHandler {
-    constructor() {
+
+    constructor(alternateInputDataLabels) {
+
+        this.alternateInputDataLabels = alternateInputDataLabels;
         this.inputs = [];
-        this.gatherFormFields();
+        this._gatherFormFields();
     }
 
-    gatherFormFields() {
+    _gatherFormFields() {
 
         var $rawInputs = $(':input');
 
-        $rawInputs.each(function(i, input) {
+        $rawInputs.each((i, input) => {
         	var $input = $(input);
         	var $elt = $input.parent();
         	var $label;
@@ -29,46 +32,55 @@ class FormHandler {
                     input: $input,
                     label: $label,
                     labelText: $label.text(),
-                    keywords: this.convertLabelToKeywords($label.text())
+                    keywords: this.stringToKeywords($label.text())
                 });
         	}
-        }.bind(this))
+        })
     }
 
-    convertLabelToKeywords(label) {
-        var keywords = label.split(/[(\s|/)+]/);
 
-        keywords = keywords.map(
-            function(string) { return string.toLowerCase(); }
-        );
+    stringToKeywords(label) {
+
+        let keywords = label.split(/[(\s|/|_)+]/)
+            .map( string => { return string.toLowerCase(); } );
 
         return keywords;
     }
 
-    fillField(name, value) {
+    mapDataToForm(data) {
+        for (var key in data) {
+            if (! data.hasOwnProperty(key)) {
+                continue;
+            }
 
+            this.expandDataLabelKeywords(key).forEach(name => {
+                this.populateFormField(name, data[key]);
+            });
+        }
+    }
+
+    expandDataLabelKeywords(label) {
+        let labelKeywords = this.stringToKeywords(label);
+
+        if (label in this.alternateInputDataLabels) {
+            labelKeywords = labelKeywords.concat(this.alternateInputDataLabels[label]);
+        }
+
+        return labelKeywords;
+    }
+
+    populateFormField(name, value) {
         this.inputs.forEach(field => {
             if (field.keywords.indexOf(name) != -1) {
                 field.input.val(value);
             }
         });
-
-    }
-
-    fillForm(data) {
-        for (var key in data) {
-            if (data.hasOwnProperty(key)) {
-                let val = data[key];
-
-                this.fillField(key, val);
-            }
-        }
     }
 }
 
-var filler = new FormHandler();
-// filler.fillField('title', 'some title from symp');
-filler.fillForm({
+var filler = new FormHandler(alternateInputDataNames);
+
+filler.mapDataToForm({
     title: "Composer the Right Way",
     type: "seminar",
     length: "60",
