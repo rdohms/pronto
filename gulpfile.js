@@ -149,7 +149,10 @@ gulp.task('clean:css', function (cb) {
 
 
 gulp.task('scss', ['bower', 'clean:css'], function () {
-    var stream = gulp.src('./src/scss/popup.scss')
+    var stream = gulp.src([
+        './src/scss/popup.scss',
+        './src/scss/injected.scss'
+        ])
         .pipe(plumber({
             errorHandler: onError
         }));

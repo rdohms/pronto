@@ -2,15 +2,27 @@
   "manifest_version": 2,
 
   "name": "Pronto!",
+  "short_name": "pronto",
   "description": "Simplify Call for Paper submissions with auto-form-filling and remote talk storage.",
   "version": "0.1",
 
+  "icons": { "16": "resources/icon16.png",
+             "48": "resources/icon48.png",
+            "128": "resources/icon128.png" },
+
+  "author": "Rafael Dohms <rafael@doh.ms>",
+  "homepage_url": "http://rdohms.github.io/pronto",
+
   "browser_action": {
-    "default_icon": "resources/icon.png",
+    "default_icon": "resources/icon48.png",
     "default_popup": "src/html/popup.html"
   },
   "permissions": [
     "activeTab",
     "https://ajax.googleapis.com/"
+  ],
+  "web_accessible_resources": [
+     "build/fonts/*",
+     "resources/"
   ]
 }
