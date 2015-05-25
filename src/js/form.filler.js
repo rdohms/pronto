@@ -1,3 +1,48 @@
+class FormField {
+
+    constructor(input) {
+        this.input = input;
+    }
+
+    highlightFilled() {
+        this.input.addClass("pronto-filled");
+    }
+
+    highlightLocated() {
+        this.input.addClass("pronto-located");
+    }
+}
+
+class Result {
+
+    constructor() {
+        this.filledInputs = [];
+    }
+
+    displaySummary() {
+
+        let count = this.filledInputs.length;
+
+        let html = `
+        <div id="pronto-summary">
+            <span><i class="fa fa-check"></i> pronto!</span>
+            ${count} fields were filled automatically for you.
+        </div>`;
+
+        $('body').append(html);
+        $('#pronto-summary').slideDown().delay(7000).slideUp();
+    }
+
+    flagFilledInput($input) {
+
+        if ($input instanceof FormField === false) {
+            $input = new FormField($input);
+        }
+
+        this.filledInputs.push($input);
+        $input.highlightFilled();
+    }
+}
 
 class FormHandler {
 
@@ -6,6 +51,8 @@ class FormHandler {
         this.alternateInputDataLabels = alternateInputDataLabels;
         this.inputs = [];
         this._gatherFormFields();
+        this.debug = false;
+
     }
 
     _gatherFormFields() {
@@ -34,6 +81,10 @@ class FormHandler {
                     labelText: $label.text(),
                     keywords: this.stringToKeywords($label.text())
                 });
+
+                if (this.debug) {
+                    new FormField($input).highlightLocated();
+                }
         	}
         })
     }
@@ -48,6 +99,9 @@ class FormHandler {
     }
 
     mapDataToForm(data) {
+
+        this.currentResult = new Result();
+
         for (var key in data) {
             if (! data.hasOwnProperty(key)) {
                 continue;
@@ -57,6 +111,8 @@ class FormHandler {
                 this.populateFormField(name, data[key]);
             });
         }
+
+        this.currentResult.displaySummary();
     }
 
     expandDataLabelKeywords(label) {
@@ -73,6 +129,7 @@ class FormHandler {
         this.inputs.forEach(field => {
             if (field.keywords.indexOf(name) != -1) {
                 field.input.val(value);
+                this.currentResult.flagFilledInput(field.input);
             }
         });
     }
