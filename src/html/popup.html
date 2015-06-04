@@ -1,9 +1,4 @@
 <!doctype html>
-<!--
- This page is shown when the extension button is clicked, because the
- "browser_action" field in manifest.json contains the "default_popup" key with
- value "popup.html".
- -->
 <html>
   <head>
     <title>Getting Started Extension's Popup</title>
@@ -17,36 +12,49 @@
       -
       - [1]: https://developer.chrome.com/extensions/contentSecurityPolicy
      -->
-    <script src="../js/popup.js"></script>
+    <script src="../../build/js/jquery.min.js"></script>
+    <script src="../../build/js/mustache.min.js"></script>
+    <script src="../../build/js/pronto-popup.js"></script>
+
   </head>
   <body>
-      <h1>Your talks</h1>
+      <nav class="navbar navbar-default">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <a class="navbar-brand" href="http://rdohms.github.io/pronto">
+              <img alt="Pronto!" src="../../resources/icon48.png">
+            </a>
 
-      <div class="talk-list">
-          <ul>
+            <p class="navbar-text pull-right loading"><i class="fa fa-cog fa-spin"></i></p>
+          </div>
+        </div>
+      </nav>
 
-              <li class="talk">
-                  <div class="talk-info">
-                      <span class="title">Composer The Right Way</span>
-                      <span class="info">lightning talk / beginner / 60 mins</span>
-                  </div>
-                  <div class="actions">
-                      <a class="btn btn-default" href="#"><i class="fa fa-pencil-square-o"></i></a>
-                  </div>
-              </li>
+      <div class="content">
+          <div class="talk-list">
+              <ul>
 
-              <li class="talk">
-                  <div class="talk-info">
-                      <span class="title">Writing code that lasts.. or code you won't hate tomorrow</span>
-                      <span class="info">keynote / beginner / 45 mins</span>
-                  </div>
-                  <div class="actions">
-                    <a class="btn btn-default href="#"><i class="fa fa-pencil-square-o"></i></a>
-                  </div>
-              </li>
-
-          </ul>
+              </ul>
+          </div>
       </div>
 
+      <script type="text/html" id="pronto-talk-template">
+          <li class="talk">
+              <div class="talk-info">
+                  <span class="title">{{ title }}</span>
+                  <span class="info">{{ type }} / {{ level }} / {{ length }} mins</span>
+              </div>
+              <div class="actions">
+                  <a class="btn btn-default btn-sm fill-this-talk" data-talk-id="{{ id }}" href="#"><i class="fa fa-server"></i></a>
+              </div>
+          </li>
+     </script>
+
+     <script type="text/html" id="pronto-talk-error-template">
+         <li class="error">
+             <div class="message">{{ message }}</div>
+             <div class="details">{{ details }}</div>
+         </li>
+    </script>
   </body>
 </html>

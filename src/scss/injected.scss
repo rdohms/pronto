@@ -1,3 +1,4 @@
+@import "variables";
 @import "../../bower_components/bourbon/app/assets/stylesheets/bourbon";
 
 .pronto-located {
@@ -9,9 +10,15 @@
     background-color: rgba(0, 153, 92, 0.1) !important;
 }
 
+.pronto-skipped {
+    border: 1px solid #469cc0 !important;
+    background-color: rgba(70, 166, 194, 0.1) !important;
+}
+
 #pronto-summary {
 
     @include position(absolute, 0px 50px 0 0);
+
     display: none;
 
     height: 100px;
@@ -22,9 +29,22 @@
 
     background-color: #009966;
 
+    font-size: 14px;
+
     span {
-        color: #fff;
-        font-size: 150%;
         display: block;
     }
+
+    .pronto-header {
+        color: #fff;
+        font-size: 22px;
+        font-weight: bold;
+        i { font-size: 19px; }
+    }
+
+    .pronto-skipped-info {
+        font-style: italic;
+        font-size: 12px
+    }
+
 }
