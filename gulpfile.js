@@ -16,8 +16,6 @@ var sourcemaps = require('gulp-sourcemaps');
 //var mocha = require('gulp-mocha');
 // var webpack = require('gulp-webpack');
 
-
-
 var _is_dev_mode = false;
 
 var onError = function(err) {
@@ -54,7 +52,7 @@ gulp.task('watch', ['devmode', 'default'], function() {
 //  * JAVASCRIPT TASKS
 //  * ################################################################ */
 //
-gulp.task('build:js', ['copy:js', 'compile:js']);
+gulp.task('build:js', ['copy:js', 'compile:js:popup', 'compile:js:form']);
 // gulp.task('build:js', ['lint:js', /* 'test:js', */ 'copy:js', 'bundle:js']);
 // gulp.task('lint:js', ['jscs', 'jshint']);
 // gulp.task('test:js', [/*'flow', */ 'mocha']);
@@ -67,22 +65,34 @@ gulp.task('build:js', ['copy:js', 'compile:js']);
 gulp.task('copy:js', ['bower'], function () {
     return gulp.src([
         './bower_components/jquery/dist/jquery.min.js',
+        './bower_components/mustache/mustache.min.js',
         './bower_components/bootstrap-sass/assets/javascripts/bootstrap.min.js'
     ]).pipe(gulp.dest('./build/js'));
 });
 
-gulp.task("compile:js", function () {
-    return gulp.src("src/js/*.js")
+gulp.task("compile:js:form", function () {
+    return gulp.src("src/js/form/*.js")
         .pipe(plumber({
             errorHandler: onError
         }))
         .pipe(sourcemaps.init())
-        .pipe(concat("pronto.js"))
+        .pipe(concat("pronto-form.js"))
         .pipe(babel())
         .pipe(sourcemaps.write("."))
         .pipe(gulp.dest("build/js"));
     });
 
+gulp.task("compile:js:popup", function () {
+    return gulp.src("src/js/popup/*.js")
+        .pipe(plumber({
+            errorHandler: onError
+        }))
+        .pipe(sourcemaps.init())
+        .pipe(concat("pronto-popup.js"))
+        .pipe(babel())
+        .pipe(sourcemaps.write("."))
+        .pipe(gulp.dest("build/js"));
+    });
 //
 //
 // gulp.task('bundle:js', ['bower', 'clean:js'], function () {

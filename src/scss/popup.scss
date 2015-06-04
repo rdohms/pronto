@@ -1,15 +1,19 @@
+@import "variables";
 @import "../../bower_components/bootstrap-sass/assets/stylesheets/bootstrap";
 @import "../../bower_components/bourbon/app/assets/stylesheets/bourbon";
 
 @import "utils/normalize.scss";
 
-$popup-size: 500px;
+
 
 body {
     min-width: $popup-size;
-    margin: 8px;
+    margin: 0px;
 }
 
+.content {
+    padding: 0 8px 8px 8px;
+}
 
 .talk-list {
     @include make-row();
@@ -20,7 +24,6 @@ body {
 }
 
 .talk {
-    padding-top: 15px;
 
     .talk-info {
 
@@ -44,3 +47,11 @@ body {
         @include make-xs-column(2);
     }
 }
+
+.error {
+    @include make-xs-column(12);
+    font-weight: bold;
+    color: rgb(143, 10, 10);
+}
+
+.loading { color: #FFF !important; font-size: 22px; padding: 5px 15px 0 0; margin: 0 !important; }
