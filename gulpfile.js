@@ -10,6 +10,10 @@ var minify_css = require('gulp-minify-css');
 var plumber = require('gulp-plumber');
 var sass = require('gulp-sass');
 var sourcemaps = require('gulp-sourcemaps');
+var babelify = require('babelify');
+var browserify = require('browserify');
+var source = require('vinyl-source-stream');
+var buffer = require('vinyl-buffer');
 
 // var jscs = require('gulp-jscs');
 // var jshint = require('gulp-jshint');
@@ -64,36 +68,45 @@ gulp.task('build:js', ['copy:js', 'compile:js:popup', 'compile:js:form']);
 //
 gulp.task('copy:js', ['bower'], function () {
     return gulp.src([
-        './bower_components/jquery/dist/jquery.min.js',
-        './bower_components/mustache/mustache.min.js',
         './bower_components/bootstrap-sass/assets/javascripts/bootstrap.min.js'
     ]).pipe(gulp.dest('./build/js'));
 });
 
-gulp.task("compile:js:form", function () {
-    return gulp.src("src/js/form/*.js")
-        .pipe(plumber({
-            errorHandler: onError
-        }))
-        .pipe(sourcemaps.init())
-        .pipe(concat("pronto-form.js"))
-        .pipe(babel())
-        .pipe(sourcemaps.write("."))
-        .pipe(gulp.dest("build/js"));
-    });
+gulp.task("compile:js:form", ['copy:js'], function () {
+    return browserify({
+                entries: './src/js/pronto-content.js',
+                debug: true
+           })
+           .transform(babelify)
+           .bundle()
+           .pipe(plumber({
+               errorHandler: onError
+           }))
+           .pipe(source('pronto-content.js'))
+           .pipe(buffer())
+           .pipe(sourcemaps.init({ loadMaps: true}))
+           .pipe(sourcemaps.write("."))
+           .pipe(gulp.dest("build/js"));
+});
 
-gulp.task("compile:js:popup", function () {
-    return gulp.src("src/js/popup/*.js")
-        .pipe(plumber({
-            errorHandler: onError
-        }))
-        .pipe(sourcemaps.init())
-        .pipe(concat("pronto-popup.js"))
-        .pipe(babel())
-        .pipe(sourcemaps.write("."))
-        .pipe(gulp.dest("build/js"));
-    });
-//
+gulp.task("compile:js:popup", ['copy:js'], function () {
+    return browserify({
+                entries: './src/js/pronto-popup.js',
+                debug: true
+           })
+           .transform(babelify)
+           .bundle()
+           .pipe(plumber({
+               errorHandler: onError
+           }))
+           .pipe(source('pronto-popup.js'))
+           .pipe(buffer())
+           .pipe(sourcemaps.init({ loadMaps: true}))
+           .pipe(sourcemaps.write("."))
+           .pipe(gulp.dest("build/js"));
+});
+
+
 //
 // gulp.task('bundle:js', ['bower', 'clean:js'], function () {
 //     return gulp.src('./build/js/main.js')

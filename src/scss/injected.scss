@@ -17,7 +17,7 @@
 
 #pronto-summary {
 
-    @include position(absolute, 0px 50px 0 0);
+    @include position(fixed, 0px 50px 0 0);
 
     display: none;
 

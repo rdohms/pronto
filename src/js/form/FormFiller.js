@@ -1,109 +1,7 @@
-class SymposiumAPI {
-    constructor() {
-        this.base_url = 'http://symp.oss.dev';
-    }
+import {FormField} from "./FormField";
+import {Result} from "./Result";
 
-    getTalkInfo(id, callback) {
-        let jqxhr = $.get( this.base_url + "/api/talks/" + id, function(response) {
-            callback(response.data.attributes);
-        })
-        .fail(function() {
-           alert( "error" );
-        });
-    }
-}
-
-class FormField {
-
-    constructor(input) {
-        this.input = input;
-    }
-
-    highlightSkipped() {
-        this.input.addClass("pronto-skipped");
-    }
-
-    highlightFilled() {
-        this.input.addClass("pronto-filled");
-    }
-
-    highlightLocated() {
-        this.input.addClass("pronto-located");
-    }
-
-    setValue(value, result) {
-
-        if (result.wasFilled(this)) {
-            return;
-        }
-
-        let currentValue = this.input.val();
-
-        if (currentValue !== null && currentValue.length != 0) {
-            this.highlightSkipped();
-            result.addSkippedField(this);
-            return;
-        }
-
-        this.input.val(value);
-        //TODO: this will expand to handle dropdowns, radios, etc..
-
-        this.highlightFilled();
-        result.addFilledField(this);
-    }
-}
-
-class Result {
-
-    constructor() {
-        this.reset();
-    }
-
-    reset() {
-        this.filledInputs = [];
-        this.skippedInputs = [];
-
-        $('#pronto-summary').remove();
-    }
-
-    wasFilled(input) {
-        return (this.filledInputs.indexOf(input) != -1);
-    }
-
-    displaySummary() {
-
-        let html = `
-        <div id="pronto-summary">
-            <span class="pronto-header"><i class="fa fa-check"></i> pronto!</span>
-            <span class="pronto-filled-info">${this.filledInputs.length} fields were filled automatically for you.</span>
-            <span class="pronto-skipped-info">${this.skippedInputs.length} fields were skipped due to existing text.</span>
-        </div>`;
-
-        $('body').append(html);
-        $('#pronto-summary').slideDown().delay(7000).slideUp();
-    }
-
-    addFilledField($input) {
-
-        if ($input instanceof FormField === false) {
-            $input = new FormField($input);
-        }
-
-        this.filledInputs.push($input);
-    }
-
-    addSkippedField($input) {
-
-        if ($input instanceof FormField === false) {
-            $input = new FormField($input);
-        }
-
-        this.skippedInputs.push($input);
-    }
-
-}
-
-class FormHandler {
+class FormFiller {
 
     constructor(alternateInputDataLabels, api, debug) {
 
@@ -176,7 +74,7 @@ class FormHandler {
 
     fillTalkData(id) {
         this.api.getTalkInfo(id, talk => {
-            this.mapDataToForm(talk);
+            this.mapDataToForm(talk.attributes);
         });
     }
 
@@ -217,4 +115,4 @@ class FormHandler {
     }
 }
 
-var filler = new FormHandler(alternateInputDataNames, new SymposiumAPI(), true);
+export {FormFiller};

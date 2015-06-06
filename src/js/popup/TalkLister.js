@@ -1,6 +1,10 @@
+var $ = require('jquery');
+var Mustache = require('mustache');
+
 class TalkLister {
 
-    constructor () {
+    constructor (api) {
+        this.api = api;
         this.base_url = "http://symp.oss.dev";
         this._injectCodeInCurrentTab();
         this._populateTalks();
@@ -11,7 +15,7 @@ class TalkLister {
         chrome.tabs.insertCSS(null, { file: "build/css/injected.css" });
 
         chrome.tabs.executeScript(null, { file: "build/js/jquery.min.js" }, function() {
-            chrome.tabs.executeScript(null, { file: "build/js/pronto-form.js" });
+            chrome.tabs.executeScript(null, { file: "build/js/pronto-content.js" });
         });
     }
 
@@ -45,29 +49,31 @@ class TalkLister {
     _populateTalks() {
         $('.loading').show();
 
-        let jqxhr = $.get( this.base_url + "/api/user/1/talksx/", (response) => {
+        this.api.getUserTalks(
+            (data) => {
 
-            $(".talk-list > ul").html();
+                $(".talk-list > ul").html();
 
-            for (var item of response.data) {
-                this._renderTalkDiv(item);
+                for (var item of data) {
+                    this._renderTalkDiv(item);
+                }
+
+                this._activateButtons();
+
+                $('.loading').fadeOut();
+            },
+            (data) => {
+
+                let template = $('#pronto-talk-error-template').html();
+                var rendered = Mustache.render(template, {
+                    message: "Unable to load talks from Symposium, sorry!",
+                    details: response.status + ": " + response.statusText
+                });
+
+                $(".talk-list > ul").html(rendered);
+                $('.loading').fadeOut();
             }
-
-            this._activateButtons();
-
-            $('.loading').fadeOut();
-        })
-        .fail(function(response) {
-
-            let template = $('#pronto-talk-error-template').html();
-            var rendered = Mustache.render(template, {
-                message: "Unable to load talks from Symposium, sorry!",
-                details: response.status + ": " + response.statusText
-            });
-    
-            $(".talk-list > ul").html(rendered);
-            $('.loading').fadeOut();
-        });
+        );
     }
 
     initiateFormFill(e) {
@@ -85,4 +91,4 @@ class TalkLister {
 
 }
 
-let pronto = new TalkLister();
+export {TalkLister};
