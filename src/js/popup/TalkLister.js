@@ -6,6 +6,7 @@ class TalkLister {
     constructor (api) {
         this.api = api;
         this.base_url = "http://symp.oss.dev";
+
         this._injectCodeInCurrentTab();
         this._populateTalks();
     }
@@ -43,11 +44,11 @@ class TalkLister {
             id: talk.id
         });
 
-        $(".talk-list > ul").append(rendered);
+        $(".talk-list > ul").prepend(rendered);
     }
 
     _populateTalks() {
-        $('.loading').show();
+        $(".loading-talks").show();
 
         this.api.getUserTalks(
             (data) => {
@@ -60,7 +61,7 @@ class TalkLister {
 
                 this._activateButtons();
 
-                $('.loading').fadeOut();
+                $(".loading-talks").fadeOut();
             },
             (data) => {
 
@@ -71,7 +72,7 @@ class TalkLister {
                 });
 
                 $(".talk-list > ul").html(rendered);
-                $('.loading').fadeOut();
+                $(".loading-talks").fadeOut();
             }
         );
     }
