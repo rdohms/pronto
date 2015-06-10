@@ -11,12 +11,21 @@ body {
     margin: 0px;
 }
 
+a:focus {
+    outline:
+}
+
+.navbar-brand {
+    padding: 0;
+}
+
 .content {
     padding: 0 8px 8px 8px;
+    min-height: 150px;
 }
 
 .talk-list {
-    @include make-row();
+
 
     ul {
         @extend .list-unstyled;
@@ -24,6 +33,9 @@ body {
 }
 
 .talk {
+
+    @include make-row();
+    margin-top: 8px;
 
     .talk-info {
 
@@ -33,6 +45,7 @@ body {
             font-size: 100%;
             font-weight: bold;
             display: block;
+            color: $pronto-dark-green;
         }
 
         .info {
@@ -55,3 +68,31 @@ body {
 }
 
 .loading { color: #FFF !important; font-size: 22px; padding: 5px 15px 0 0; margin: 0 !important; }
+
+.loading-talks {
+
+    @include make-row();
+    @include make-xs-column(12);
+
+    @include position(absolute, 60px 0 0 0);
+
+    @extend .text-center;
+
+    i{
+        font-size: 100%;
+    }
+
+    color: #9e9e9e; font-size: 95%;
+}
+
+footer {
+    background-color: #dfdddd;
+    font-size: 75%;
+
+    padding: 8px 8px 0 8px;
+
+    a {
+        color: #000;
+        font-style: italic;
+    }
+}
