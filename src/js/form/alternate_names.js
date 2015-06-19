@@ -1,6 +1,6 @@
 export var inputDataNames = {
     title: ['name'],
-    outline: ['abstract'],
+    outline: ['abstract', 'describe'],
     organizer_notes: ['notes', 'additional'],
     level: ['audience']
 }

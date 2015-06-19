@@ -19,7 +19,7 @@ class FormFiller {
             (request, sender, sendResponse) => {
 
                 if (request.type == "FILL_TALK") {
-                    this.fillTalkData(request.talk_id);
+                    this.mapDataToForm(request.talk_data);
                     sendResponse({success: true});
                 }
         });
@@ -70,12 +70,6 @@ class FormFiller {
             .map( string => { return string.toLowerCase(); } );
 
         return keywords;
-    }
-
-    fillTalkData(id) {
-        this.api.getTalkInfo(id, talk => {
-            this.mapDataToForm(talk.attributes);
-        });
     }
 
     mapDataToForm(data) {
