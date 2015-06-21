@@ -56,7 +56,13 @@ gulp.task('watch', ['devmode', 'default'], function() {
 //  * JAVASCRIPT TASKS
 //  * ################################################################ */
 //
-gulp.task('build:js', ['copy:js', 'compile:js:popup', 'compile:js:form']);
+gulp.task('build:js', [
+    'copy:js',
+    'compile:js:popup',
+    'compile:js:content',
+    'compile:js:options'
+]);
+
 // gulp.task('build:js', ['lint:js', /* 'test:js', */ 'copy:js', 'bundle:js']);
 // gulp.task('lint:js', ['jscs', 'jshint']);
 // gulp.task('test:js', [/*'flow', */ 'mocha']);
@@ -72,7 +78,7 @@ gulp.task('copy:js', ['bower'], function () {
     ]).pipe(gulp.dest('./build/js'));
 });
 
-gulp.task("compile:js:form", ['copy:js'], function () {
+gulp.task("compile:js:content", ['copy:js'], function () {
     return browserify({
                 entries: './src/js/pronto-content.js',
                 debug: true
@@ -106,7 +112,22 @@ gulp.task("compile:js:popup", ['copy:js'], function () {
            .pipe(gulp.dest("build/js"));
 });
 
-
+gulp.task("compile:js:options", ['copy:js'], function () {
+    return browserify({
+                entries: './src/js/pronto-options.js',
+                debug: true
+           })
+           .transform(babelify)
+           .bundle()
+           .pipe(plumber({
+               errorHandler: onError
+           }))
+           .pipe(source('pronto-options.js'))
+           .pipe(buffer())
+           .pipe(sourcemaps.init({ loadMaps: true}))
+           .pipe(sourcemaps.write("."))
+           .pipe(gulp.dest("build/js"));
+});
 //
 // gulp.task('bundle:js', ['bower', 'clean:js'], function () {
 //     return gulp.src('./build/js/main.js')

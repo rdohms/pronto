@@ -1,10 +1,12 @@
 var $ = require('jquery');
 
 class SymposiumApiClient {
-    constructor() {
+    constructor(storage) {
         this.base_url = 'http://symp.oss.dev/api';
         this.current_user = null;
         this.jQuery = $;
+
+        this.access_token = storage.getToken();
     }
 
     _makeRequest(url, callback, error_callback = null) {
@@ -15,6 +17,15 @@ class SymposiumApiClient {
         }
 
         this.jQuery.get(this.base_url + url, callback).fail(error_callback);
+
+        $.ajax({
+          url : this.base_url + url,
+          headers: { "Authorization": `Bearer ${this.access_token}` },
+          type : 'GET',
+        })
+        .done(callback)
+        .fail(error_callback);
+
     }
 
     _ensureUserInfo() {
