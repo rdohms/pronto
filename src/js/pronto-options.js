@@ -1,17 +1,15 @@
-import {TalkLister} from "./popup/TalkLister";
 import {SymposiumApiClient} from "./api/SymposiumApiClient";
+import {TokenStorage} from "./identity/TokenStorage";
 import {TokenFetcher} from "./identity/TokenFetcher";
 import {IdentityIntegrator} from "./identity/IdentityIntegrator";
 
 // let jQuery = require('jquery');
 // require('../../build/js/bootstrap.min.js');
 
-console.log("This is a test");
+console.log("Hello from Options!");
 
-let api = new SymposiumApiClient();
+let storage  = new TokenStorage();
+let api = new SymposiumApiClient(storage);
 
-let fetcher = new TokenFetcher(1, 'hoihfoipqwe');
+let fetcher  = new TokenFetcher(1, 'hoihfoipqwe', storage);
 let identity = new IdentityIntegrator(fetcher, api);
-
-//let pronto = new TalkLister(api);
-console.log("Ready to go");

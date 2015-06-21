@@ -6,6 +6,7 @@
   "description": "Simplify Call for Paper submissions with auto-form-filling and remote talk storage.",
   "version": "0.1",
 
+
   "icons": { "16": "resources/icon16.png",
              "48": "resources/icon48.png",
             "128": "resources/icon128.png" },
@@ -17,12 +18,26 @@
     "default_icon": "resources/icon48.png",
     "default_popup": "src/html/popup.html"
   },
+
+  "background": {
+      "scripts": ["build/js/pronto-background.js"],
+      "persistent": false
+  },
+
+  "options_ui": {
+    "page": "src/html/options.html",
+    "chrome_style": true
+  },
+
   "permissions": [
     "activeTab",
     "identity",
+    "storage",
     "http://symp.oss.dev/",
-    "http://symposiumapp.com/"
+    "http://symposiumapp.com/",
+    "http://github.com/"
   ],
+
   "web_accessible_resources": [
      "build/fonts/*",
      "resources/"
