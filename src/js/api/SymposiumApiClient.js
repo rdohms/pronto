@@ -6,17 +6,32 @@ class SymposiumApiClient {
         this.current_user = null;
         this.jQuery = $;
 
-        this.access_token = storage.getToken();
+        this.storage = storage;
+        this.access_token = null;
+
+        this.loadToken();
+    }
+
+    loadToken(callback = null) {
+        this.storage.getToken().then(token => {
+            this.access_token = token;
+
+            if (callback != null) {
+                callback();
+            }
+        });
     }
 
     _makeRequest(url, callback, error_callback = null) {
+
+        console.log("Making API request: ", this.access_token);
+
         if (error_callback == null) {
             error_callback = response => {
+                console.error(response);
                 this.error_response = response;
             };
         }
-
-        this.jQuery.get(this.base_url + url, callback).fail(error_callback);
 
         $.ajax({
           url : this.base_url + url,
@@ -24,7 +39,17 @@ class SymposiumApiClient {
           type : 'GET',
         })
         .done(callback)
-        .fail(error_callback);
+        .fail(response => {
+            if (response.status == 400 && response.responseText.includes('access token')) {
+                this.storage.removeToken();
+            }
+
+            if (response.status == 401) {
+                this.storage.removeToken();
+            }
+
+            error_callback();
+        });
 
     }
 
@@ -49,6 +74,7 @@ class SymposiumApiClient {
     }
 
     getLoggedUserData(callback, error_callback = null) {
+        console.log("Access Token:", this.access_token);
         this._makeRequest(
             "/me",
             callback,
