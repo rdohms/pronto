@@ -14,7 +14,9 @@ class TokenFetcher {
 
 
         this.storage = storage;
-        this.access_token = this.storage.getToken();
+        this.storage.getToken().then(token => {
+            this.access_token = token;
+        });
 
         this.currentCallback = function () {
             new Error('No currentCallback');

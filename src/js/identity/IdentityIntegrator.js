@@ -12,54 +12,66 @@ class IdentityIntegrator {
 
     _setup() {
 
-        this.loginBtn = $('#login');
-        this.profileDiv = $('.user-info');
+        this.loggedInDiv = $('#logged');
+        this.loginDiv    = $('#login');
+        this.loading     = $('#loading');
+
         this.userName = $('.user-name');
-        this.logoutBtn = $('#logout')
+        this.logoutBtn = $('#logout-btn');
+        this.loginBtn  = $('#login-btn');
 
-        if (this.fetcher.storage.hasToken()) {
-            this.loginBtn.hide();
-            this.showUserData((user) => {
-                this.profileDiv.show();
-                this.userName.text(user);
-            });
-        } else {
-            this.loginBtn.show();
-            this.profileDiv.hide();
-        }
-
-        console.log("I'm done rendering... btw...", this.fetcher.storage.hasToken());
+        this.loading.hide();
 
         this.loginBtn.on("click", e => {
+            this.loading.slideDown();
+            this.loginDiv.hide();
             this.initiateInteractiveSignIn();
         });
 
-        this.loginBtn.on("click", e => {
+        this.logoutBtn.on("click", e => {
             this.fetcher.storage.removeToken();
+            this.toggleOptions(false);
+        });
+
+        this.fetcher.storage.hasToken().then(hasToken => {
+            this.toggleOptions(hasToken);
         });
     }
 
     initiateInteractiveSignIn() {
-        console.log("initiating handshake");
-
-        this.fetcher.getToken(true, function(error, access_token) {
+        this.fetcher.getToken(true, (error, access_token) => {
             if (error) {
-                //showButton(signin_button);
-                console.log(error);
+                this.toggleOptions(false);
             } else {
-                //this.api.setToken(access_token);
-                console.log("We gotz token", access_token);
-                //getUserInfo(true);
+                this.api.loadToken(() => {
+                    this.toggleOptions(true);
+                })
+
             }
         });
     }
 
-    showUserData(callback) {
+    getUserData(callback) {
         this.api.getLoggedUserData(
-            (data) => {
-                console.log(data);
+            (response) => {
+                callback(response.data.attributes);
             }
         );
+    }
+
+    toggleOptions(hasToken) {
+        if (hasToken) {
+            this.loading.slideUp();
+            this.loginDiv.hide();
+            this.getUserData((user) => {
+                this.userName.text(user.first_name);
+                this.loggedInDiv.show();
+            });
+        } else {
+            this.loading.hide();
+            this.loginDiv.show();
+            this.loggedInDiv.hide();
+        }
     }
 }
 
