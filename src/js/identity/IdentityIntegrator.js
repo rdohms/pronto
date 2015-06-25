@@ -6,7 +6,6 @@ class IdentityIntegrator {
         this.fetcher = fetcher;
         this.api = api;
 
-
         this._setup();
     }
 

@@ -1,4 +1,5 @@
 var $ = require('jquery');
+let debug = require('../helper/Debug');
 
 class Popup {
 
@@ -13,7 +14,9 @@ class Popup {
     _checkTokenPresence() {
 
         this.storage.hasToken().then(hasToken => {
-            console.log("Has token:", hasToken);
+            
+            debug.log('[popup] token present?', hasToken);
+
             if (hasToken) {
                 this._setup();
             } else {

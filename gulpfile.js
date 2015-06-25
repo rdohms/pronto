@@ -13,6 +13,7 @@ var sourcemaps = require('gulp-sourcemaps');
 var babelify = require('babelify');
 var browserify = require('browserify');
 var source = require('vinyl-source-stream');
+var rename = require("gulp-rename");
 var buffer = require('vinyl-buffer');
 
 // var jscs = require('gulp-jscs');
@@ -27,35 +28,59 @@ var onError = function(err) {
     this.emit('end');
 };
 
+var _config_file = "";
+
 /* ################################################################
  * META TASKS
  * ################################################################ */
 
-gulp.task('default', ['bower', 'build:js', 'build:css']);
-
+gulp.task('default', ['config:load', 'bower', 'build:js', 'build:css', 'build:html']);
 
 gulp.task('bower', function() {
     return bower();
 });
 
+gulp.task('config:load', function() {
+    _config_file = (_is_dev_mode)? './config/dev.js' : './config/production.js';
+
+    return gulp.src([_config_file])
+        .pipe(rename("config.js"))
+        .pipe(gulp.dest('./extension/build/js'));
+});
 
 gulp.task('clean', ['clean:js', 'clean:css']);
-
 
 gulp.task('devmode', function() {
     _is_dev_mode = true;
 });
 
-
 gulp.task('watch', ['devmode', 'default'], function() {
     gulp.watch('./src/scss/**/*.scss', ['build:css']);
     gulp.watch('./src/**/*.js', ['build:js']);
+    gulp.watch('./config/**/*.js', ['build:js']);
+    gulp.watch('./src/**/*.html', ['build:html']);
 });
 
-// /* ################################################################
-//  * JAVASCRIPT TASKS
-//  * ################################################################ */
-//
+/* ################################################################
+ * HTML TASKS
+ * ################################################################ */
+
+gulp.task('build:html', ['copy:html']);
+
+
+gulp.task('clean:html', function (cb) {
+    del(['./web/html'], cb);
+});
+
+gulp.task('copy:html', ['clean:html'], function () {
+    gulp.src('./src/html/*')
+        .pipe(gulp.dest('./extension/build/html'));
+});
+
+/* ################################################################
+ * JAVASCRIPT TASKS
+ * ################################################################ */
+
 gulp.task('build:js', [
     'copy:js',
     'compile:js:popup',
@@ -72,16 +97,18 @@ gulp.task('build:js', [
 // });
 //
 //
-gulp.task('copy:js', ['bower'], function () {
+gulp.task('copy:js', ['bower', 'config:load'], function () {
     return gulp.src([
         './bower_components/bootstrap-sass/assets/javascripts/bootstrap.min.js'
-    ]).pipe(gulp.dest('./build/js'));
+    ]).pipe(gulp.dest('./extension/build/js'));
 });
+
+
 
 gulp.task("compile:js:content", ['copy:js'], function () {
     return browserify({
                 entries: './src/js/pronto-content.js',
-                debug: true
+                debug: _is_dev_mode
            })
            .transform(babelify)
            .bundle()
@@ -92,13 +119,13 @@ gulp.task("compile:js:content", ['copy:js'], function () {
            .pipe(buffer())
            .pipe(sourcemaps.init({ loadMaps: true}))
            .pipe(sourcemaps.write("."))
-           .pipe(gulp.dest("build/js"));
+           .pipe(gulp.dest("extension/build/js"));
 });
 
 gulp.task("compile:js:popup", ['copy:js'], function () {
     return browserify({
                 entries: './src/js/pronto-popup.js',
-                debug: true
+                debug: _is_dev_mode
            })
            .transform(babelify)
            .bundle()
@@ -109,13 +136,13 @@ gulp.task("compile:js:popup", ['copy:js'], function () {
            .pipe(buffer())
            .pipe(sourcemaps.init({ loadMaps: true}))
            .pipe(sourcemaps.write("."))
-           .pipe(gulp.dest("build/js"));
+           .pipe(gulp.dest("extension/build/js"));
 });
 
 gulp.task("compile:js:options", ['copy:js'], function () {
     return browserify({
                 entries: './src/js/pronto-options.js',
-                debug: true
+                debug: _is_dev_mode
            })
            .transform(babelify)
            .bundle()
@@ -126,7 +153,7 @@ gulp.task("compile:js:options", ['copy:js'], function () {
            .pipe(buffer())
            .pipe(sourcemaps.init({ loadMaps: true}))
            .pipe(sourcemaps.write("."))
-           .pipe(gulp.dest("build/js"));
+           .pipe(gulp.dest("extension/build/js"));
 });
 //
 // gulp.task('bundle:js', ['bower', 'clean:js'], function () {
@@ -178,17 +205,17 @@ gulp.task('build:css', ['scss', 'minify:css', 'fontawesome']);
 
 gulp.task('fontawesome', ['bower', 'scss'], function () {
     var fonts = gulp.src('./bower_components/fontawesome/fonts/*')
-        .pipe(gulp.dest('./build/fonts'));
+        .pipe(gulp.dest('./extension/build/fonts'));
 
     var css = gulp.src('./bower_components/fontawesome/css/font-awesome.css')
-        .pipe(gulp.dest('./build/css'));
+        .pipe(gulp.dest('./extension/build/css'));
 
     return merge(fonts, css);
 });
 
 
 gulp.task('clean:css', function (cb) {
-    del(['./build/css'], cb);
+    del(['./extension/build/css'], cb);
 });
 
 
@@ -213,7 +240,7 @@ gulp.task('scss', ['bower', 'clean:css'], function () {
         stream = stream.pipe(sourcemaps.write());
     }
 
-    stream = stream.pipe(gulp.dest('./build/css'));
+    stream = stream.pipe(gulp.dest('./extension/build/css'));
     return stream;
 });
 
@@ -224,10 +251,10 @@ gulp.task('minify:css', ['scss'], function() {
         return;
     }
 
-    return gulp.src('./build/css/*.css')
+    return gulp.src('./extension/build/css/*.css')
         .pipe(minify_css({
             keepBreaks:true,
             roundingPrecision: -1
         }))
-        .pipe(gulp.dest('./build/css'));
+        .pipe(gulp.dest('./extension/build/css'));
 });

@@ -1,8 +1,9 @@
 var $ = require('jquery');
+let debug = require('../helper/Debug');
 
 class SymposiumApiClient {
-    constructor(storage) {
-        this.base_url = 'http://symp.oss.dev/api';
+    constructor(base_url, storage) {
+        this.base_url = base_url + "/api";
         this.current_user = null;
         this.jQuery = $;
 
@@ -24,11 +25,11 @@ class SymposiumApiClient {
 
     _makeRequest(url, callback, error_callback = null) {
 
-        console.log("Making API request: ", this.access_token);
+        debug.log('[api] making request with token:', url, this.access_token);
 
         if (error_callback == null) {
             error_callback = response => {
-                console.error(response);
+                debug.log('[api] error:', response);
                 this.error_response = response;
             };
         }
@@ -74,7 +75,6 @@ class SymposiumApiClient {
     }
 
     getLoggedUserData(callback, error_callback = null) {
-        console.log("Access Token:", this.access_token);
         this._makeRequest(
             "/me",
             callback,

@@ -1,13 +1,10 @@
-
-// TODO: make this async
-
-// TODO: make popup check this first, and trigger options page if empty
+let debug = require('../helper/Debug');
 
 class TokenStorage {
     constructor() {
         this.storageKey = 'pronto_access_token';
         chrome.storage.sync.get(null, data => {
-            console.log("Debug (all stored data):", data);
+            debug.log("[storage] current contents:", data);
         });
     }
 
@@ -31,7 +28,7 @@ class TokenStorage {
     getToken() {
         return new Promise((resolve, reject) => {
             chrome.storage.sync.get(this.storageKey, (storage) => {
-                console.log("getToken:", storage[this.storageKey]);
+                debug.log('[storage] getToken:', storage[this.storageKey]);
                 if (storage.hasOwnProperty(this.storageKey)) {
                     resolve(storage[this.storageKey]);
                 } else {
@@ -42,10 +39,12 @@ class TokenStorage {
     }
 
     saveToken(access_token) {
+        debug.log('[storage] saveToken:', access_token);
         chrome.storage.sync.set({[this.storageKey]: access_token});
     }
 
     removeToken() {
+        debug.log('[storage] removeToken');
         chrome.storage.sync.remove(this.storageKey);
     }
 }
