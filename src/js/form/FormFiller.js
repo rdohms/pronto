@@ -1,15 +1,16 @@
 import {FormField} from "./FormField";
 import {Result} from "./Result";
 
+let debug = require('../helper/Debug');
+
 class FormFiller {
 
-    constructor(alternateInputDataLabels, api, debug) {
+    constructor(alternateInputDataLabels) {
 
         this.alternateInputDataLabels = alternateInputDataLabels;
         this.inputs = [];
         this._gatherFormFields();
-        this.api = api;
-        this.debug = debug;
+        this.debug = false;
 
         this._setupListeners();
     }
@@ -17,7 +18,7 @@ class FormFiller {
     _setupListeners() {
         chrome.runtime.onMessage.addListener(
             (request, sender, sendResponse) => {
-
+                debug.log('[form] received message:', request);
                 if (request.type == "FILL_TALK") {
                     this.mapDataToForm(request.talk_data);
                     sendResponse({success: true});

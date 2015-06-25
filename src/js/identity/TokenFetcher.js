@@ -1,8 +1,9 @@
 var $ = require('jquery');
+let debug = require('../helper/Debug');
 
 class TokenFetcher {
 
-    constructor (id, secret, storage) {
+    constructor (id, secret, base_url, storage) {
 
         this.clientId = id;
         this.clientSecret = secret;
@@ -10,8 +11,7 @@ class TokenFetcher {
         this.redirectUri = chrome.identity.getRedirectURL('provider_cb');
         this.redirectRegExp = new RegExp(this.redirectUri + '[#\?](.*)');
 
-        this.base_url = 'http://symp.oss.dev/'
-
+        this.base_url = base_url;
 
         this.storage = storage;
         this.storage.getToken().then(token => {
@@ -37,9 +37,10 @@ class TokenFetcher {
             interactive: interactive,
             url: this._getAuthUrl()
         }
+        debug.log('[fetcher] identity options:', options);
 
         chrome.identity.launchWebAuthFlow(options, redirectUri => {
-            console.log('launchWebAuthFlow completed', chrome.runtime.lastError,redirectUri);
+            debug.log('[fetcher] launchWebAuthFlow completed', chrome.runtime.lastError, redirectUri);
 
             if (chrome.runtime.lastError) {
               this.currentCallback(new Error(chrome.runtime.lastError));
@@ -60,14 +61,15 @@ class TokenFetcher {
 
     _setAccessToken(access_token) {
         this.access_token = access_token;
-        console.log('Setting access_token: ', access_token);
+        debug.log('[fetcher] setting access_token: ', access_token);
 
         this.storage.saveToken(access_token);
         this.currentCallback(null, access_token);
     }
 
     _handleProviderResponse(values) {
-        console.log('providerResponse', values);
+
+        debug.log('[fetcher] handling provider response:', values);
 
         if (values.hasOwnProperty('access_token'))
           this._setAccessToken(values.access_token);
@@ -107,11 +109,11 @@ class TokenFetcher {
 
     _getAuthUrl() {
         let encodedUri = encodeURIComponent(this.redirectUri);
-        return `${this.base_url}oauth/authorize?client_id=${this.clientId}&redirect_uri=${encodedUri}&response_type=code`;
+        return `${this.base_url}/oauth/authorize?client_id=${this.clientId}&redirect_uri=${encodedUri}&response_type=code`;
     }
 
     _getAccessTokenUrl(code) {
-        return `${this.base_url}oauth/access-token`;
+        return `${this.base_url}/oauth/access-token`;
     }
 
     _getCodeExchangeData(code) {
