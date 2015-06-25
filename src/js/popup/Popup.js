@@ -14,7 +14,7 @@ class Popup {
     _checkTokenPresence() {
 
         this.storage.hasToken().then(hasToken => {
-            
+
             debug.log('[popup] token present?', hasToken);
 
             if (hasToken) {
@@ -27,19 +27,8 @@ class Popup {
     }
 
     _setup() {
-
         this._injectCodeInCurrentTab();
         this.talks.populateList();
-
-        document.querySelector('#go-to-options').addEventListener(function() {
-          if (chrome.runtime.openOptionsPage) {
-            // New way to open options pages, if supported (Chrome 42+).
-            chrome.runtime.openOptionsPage();
-          } else {
-            // Reasonable fallback.
-            window.open(chrome.runtime.getURL('options.html'));
-          }
-        });
     }
 
     _injectCodeInCurrentTab() {
@@ -52,6 +41,18 @@ class Popup {
     }
 
     _redirectToOptions() {
+
+        debug.log('[popup] button', $('#go-to-options'));
+        $('#go-to-options').on('click', () => {
+            debug.log('[popup] clicked go-to-options:', chrome.runtime.openOptionsPage);
+            if (chrome.runtime.openOptionsPage) {
+                chrome.runtime.openOptionsPage();
+            } else {
+                window.open(chrome.runtime.getURL('options.html'));
+            }
+            window.close();
+        });
+
         $(".loading-talks").hide();
         $('.options-alert').slideDown();
     }
