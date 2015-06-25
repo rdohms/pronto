@@ -14,6 +14,7 @@ var babelify = require('babelify');
 var browserify = require('browserify');
 var source = require('vinyl-source-stream');
 var rename = require("gulp-rename");
+var zip = require('gulp-zip');
 var buffer = require('vinyl-buffer');
 
 // var jscs = require('gulp-jscs');
@@ -257,4 +258,17 @@ gulp.task('minify:css', ['scss'], function() {
             roundingPrecision: -1
         }))
         .pipe(gulp.dest('./extension/build/css'));
+});
+
+/* ################################################################
+ * Packaging
+ * ################################################################ */
+gulp.task('package:build', [], function() {
+    if (_is_dev_mode) {
+        return;
+    }
+
+    return gulp.src('extension/*')
+        .pipe(zip('extension.zip'))
+        .pipe(gulp.dest('dist'));
 });

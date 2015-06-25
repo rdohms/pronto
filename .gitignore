@@ -2,4 +2,8 @@ extension/build/
 bower_components/
 node_modules/
 samples/
+dist/
 npm-debug.log
+extension.crx
+extension.pem
+extension.crx.zip

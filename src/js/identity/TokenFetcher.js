@@ -102,7 +102,8 @@ class TokenFetcher {
                 } else {
                   this.currentCallback(new Error('Cannot obtain access_token from code.'));
                 }
-        }).fail(() => {
+        }).fail((response) => {
+            debug.log('[fetcher] failed to exchange code:', response);
             this.currentCallback(new Error('Code Exchange failed.'));
         });
     }
