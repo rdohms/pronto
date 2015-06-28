@@ -15,6 +15,8 @@ var browserify = require('browserify');
 var source = require('vinyl-source-stream');
 var rename = require("gulp-rename");
 var zip = require('gulp-zip');
+var bump = require('gulp-bump');
+var minimist = require('minimist');
 var buffer = require('vinyl-buffer');
 
 // var jscs = require('gulp-jscs');
@@ -28,6 +30,15 @@ var onError = function(err) {
     console.log(err.toString());
     this.emit('end');
 };
+
+var knownOptions = {
+  string: 'rel',
+  default: { rel: 'patch' }
+};
+
+var options = minimist(process.argv.slice(2), knownOptions);
+
+console.log(options);
 
 var _config_file = "";
 
@@ -263,7 +274,7 @@ gulp.task('minify:css', ['scss'], function() {
 /* ################################################################
  * Packaging
  * ################################################################ */
-gulp.task('package:build', [], function() {
+gulp.task('package:build', ['package:bump'], function() {
     if (_is_dev_mode) {
         return;
     }
@@ -271,4 +282,17 @@ gulp.task('package:build', [], function() {
     return gulp.src('extension/*')
         .pipe(zip('extension.zip'))
         .pipe(gulp.dest('dist'));
+});
+
+gulp.task('package:bump', [], function() {
+    if (_is_dev_mode) {
+        return;
+    }
+
+    return gulp.src([
+            '*.json',
+            'extension/manifest.json'
+        ], {base: "."})
+        .pipe(bump({type: options.rel}))
+        .pipe(gulp.dest('./'));
 });
