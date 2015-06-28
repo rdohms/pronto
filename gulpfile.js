@@ -17,6 +17,7 @@ var rename = require("gulp-rename");
 var zip = require('gulp-zip');
 var bump = require('gulp-bump');
 var minimist = require('minimist');
+var fs = require('fs');
 var buffer = require('vinyl-buffer');
 
 // var jscs = require('gulp-jscs');
@@ -37,8 +38,6 @@ var knownOptions = {
 };
 
 var options = minimist(process.argv.slice(2), knownOptions);
-
-console.log(options);
 
 var _config_file = "";
 
@@ -279,8 +278,10 @@ gulp.task('package:build', ['package:bump'], function() {
         return;
     }
 
+    var pkg = JSON.parse(fs.readFileSync('./package.json', 'utf8'));
+
     return gulp.src('extension/*')
-        .pipe(zip('extension.zip'))
+        .pipe(zip('extension' + pkg.version + '.zip'))
         .pipe(gulp.dest('dist'));
 });
 
