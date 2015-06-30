@@ -1,4 +1,4 @@
-# Pronto!
+# Pronto! [![Available on the Chrome WebStore](https://developer.chrome.com/webstore/images/ChromeWebStore_Badge_v2_206x58.png)](https://chrome.google.com/webstore/detail/pronto/ceppkbmiglldpkelkicajinlfdkbpihh)
 
 Pronto is a tool to facilitate the submission process to Calls for Papers. Its a chrome extension that will help you fill in the forms pulling data about your talks stored elsewhere.
 
@@ -27,3 +27,4 @@ Once you have setup the api, clicking the button on the extension bar should lis
 By clicking on the icon next to it should fill the form and show you a summary.
 
 ![summary](extension/resources/summary.jpg)
+§
