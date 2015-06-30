@@ -38,6 +38,7 @@ class IdentityIntegrator {
     }
 
     initiateInteractiveSignIn() {
+        ga('send', 'event', 'extension', 'initiate_interactive_signin');
         this.fetcher.getToken(true, (error, access_token) => {
             if (error) {
                 this.toggleOptions(false);

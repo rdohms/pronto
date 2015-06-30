@@ -3,7 +3,8 @@ import {TokenStorage} from "./identity/TokenStorage";
 import {TokenFetcher} from "./identity/TokenFetcher";
 import {IdentityIntegrator} from "./identity/IdentityIntegrator";
 
-var settings = require('../../extension/build/js/config.js');
+let settings = require('../../extension/build/js/config.js');
+let ga = require('./analytics.js');
 
 let storage  = new TokenStorage();
 
@@ -17,3 +18,5 @@ let fetcher  = new TokenFetcher(
 );
 
 let identity = new IdentityIntegrator(fetcher, api);
+
+ga('send', 'pageview', '/options.html');

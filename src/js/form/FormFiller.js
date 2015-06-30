@@ -21,7 +21,7 @@ class FormFiller {
                 debug.log('[form] received message:', request);
                 if (request.type == "FILL_TALK") {
                     this.mapDataToForm(request.talk_data);
-                    sendResponse({success: true});
+                    sendResponse({success: true, url: window.location.href});
                 }
         });
     }

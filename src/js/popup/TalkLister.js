@@ -1,4 +1,4 @@
-var $ = require('jquery');
+var $        = require('jquery');
 var Mustache = require('mustache');
 
 class TalkLister {
@@ -37,10 +37,13 @@ class TalkLister {
     _sendTalkData(data) {
         chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
             chrome.tabs.sendMessage(tabs[0].id, {type: "FILL_TALK", talk_data: data}, function(response) {
+                ga('send', 'event', 'extension', 'active_on', response.url);
                 if (response.success) {
                     window.close();
                 }
             });
+
+            ga('send', 'event', 'talk', 'fill_requested', data.title);
         });
     }
 

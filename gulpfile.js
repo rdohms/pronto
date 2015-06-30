@@ -285,7 +285,7 @@ gulp.task('package:build', ['package:bump'], function() {
         .pipe(gulp.dest('dist'));
 });
 
-gulp.task('package:bump', [], function() {
+gulp.task('package:bump', ['config:load', 'build:js'], function() {
     if (_is_dev_mode) {
         return;
     }
