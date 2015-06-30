@@ -11,3 +11,19 @@ It will provide a fair balance between flooding CfP's and avoiding the Copy/Past
 This is a working example of the application filling a form with initial static sample data from symposium.
 
 ![Working sample](resources/example-1.gif?raw=true)
+
+## Install
+
+Pronto! is currently only available on Google Chrome and can be installed on the [WebStore](https://chrome.google.com/webstore/detail/pronto/ceppkbmiglldpkelkicajinlfdkbpihh).
+
+After installing it, you will see the pronto! button (![icon](resources/icon16.png)) on your extension bar and upon clicking you may be prompted to visit the options page and configure your API token for SymposiumApp.
+
+The extension will guide you through the handshake process.
+
+Once you have setup the api, clicking the button on the extension bar should list your talks
+
+![list of talks](resources/talk-list.jpg)
+
+By clicking on the icon next to it should fill the form and show you a summary.
+
+![summary](resources/summary.jpg)

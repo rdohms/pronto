@@ -35,9 +35,7 @@ class Popup {
             chrome.tabs.insertCSS(null, { file: "build/css/font-awesome.css" });
             chrome.tabs.insertCSS(null, { file: "build/css/injected.css" });
 
-            chrome.tabs.executeScript(null, { file: "build/js/jquery.min.js" }, function() {
-                chrome.tabs.executeScript(null, { file: "build/js/pronto-content.js" });
-            });
+            chrome.tabs.executeScript(null, { file: "build/js/pronto-content.js" });
     }
 
     _redirectToOptions() {

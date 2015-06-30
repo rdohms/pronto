@@ -1,3 +1,4 @@
+var $ = require('jquery');
 import {FormFiller} from "./form/FormFiller";
 
 let alternates = require("./form/alternate_names");

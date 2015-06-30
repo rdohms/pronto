@@ -2,6 +2,7 @@ import {FormField} from "./FormField";
 import {Result} from "./Result";
 
 let debug = require('../helper/Debug');
+var $ = require('jquery');
 
 class FormFiller {
 

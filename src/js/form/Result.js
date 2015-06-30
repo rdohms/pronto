@@ -1,4 +1,5 @@
 import {FormField} from "./FormField";
+var $ = require('jquery');
 
 class Result {
 
