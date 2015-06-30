@@ -15,12 +15,6 @@
     "default_icon": "resources/icon48.png",
     "default_popup": "build/html/popup.html"
   },
-  "background": {
-    "scripts": [
-      "build/js/pronto-background.js"
-    ],
-    "persistent": false
-  },
   "options_ui": {
     "page": "build/html/options.html",
     "chrome_style": true
