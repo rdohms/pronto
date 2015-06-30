@@ -280,7 +280,7 @@ gulp.task('package:build', ['package:bump'], function() {
 
     var pkg = JSON.parse(fs.readFileSync('./package.json', 'utf8'));
 
-    return gulp.src('extension/*')
+    return gulp.src('extension/**/*')
         .pipe(zip('extension' + pkg.version + '.zip'))
         .pipe(gulp.dest('dist'));
 });
