@@ -1,14 +1,15 @@
 import {FormField} from "./FormField";
 import {Result} from "./Result";
+import {FuzzyMapper} from "./FuzzyMapper";
 
 let debug = require('../helper/Debug');
 var $ = require('jquery');
 
 class FormFiller {
 
-    constructor(alternateInputDataLabels) {
+    constructor(config) {
 
-        this.alternateInputDataLabels = alternateInputDataLabels;
+        this.config = config;
         this.inputs = [];
         this._gatherFormFields();
         this.debug = false;
@@ -21,7 +22,7 @@ class FormFiller {
             (request, sender, sendResponse) => {
                 debug.log('[form] received message:', request);
                 if (request.type == "FILL_TALK") {
-                    this.mapDataToForm(request.talk_data);
+                    this.fillForm(request.talk_data);
                     sendResponse({success: true, url: window.location.href});
                 }
         });
@@ -52,9 +53,8 @@ class FormFiller {
 
                 this.inputs.push({
                     input: $input,
-                    label: $label,
-                    labelText: $label.text(),
-                    keywords: this.stringToKeywords($label.text()),
+                    label: $label.text(),
+                    keywords: this.stringToKeywords($label.text()).concat($label.text()),
                     field: field
                 });
 
@@ -63,8 +63,8 @@ class FormFiller {
                 }
         	}
         })
-    }
 
+    }
 
     stringToKeywords(label) {
 
@@ -74,18 +74,23 @@ class FormFiller {
         return keywords;
     }
 
-    mapDataToForm(data) {
+    fillForm(talkData) {
 
+        let mapper = new FuzzyMapper(this.inputs);
+        mapper.reset();
         this.currentResult = new Result();
 
-        for (var key in data) {
-            if (! data.hasOwnProperty(key)) {
+        for (var key in talkData) {
+            if (! talkData.hasOwnProperty(key)) {
                 continue;
             }
 
-            this.expandDataLabelKeywords(key).forEach(name => {
-                this.populateFormField(name, data[key]);
-            });
+            if (this.config.ignoredData.includes(key)) {
+                continue;
+            }
+
+            let field = mapper.match(this.expandDataLabelKeywords(key));
+            this.populateFormField(field, talkData[key]);
         }
 
         this.currentResult.displaySummary();
@@ -94,20 +99,19 @@ class FormFiller {
     expandDataLabelKeywords(label) {
         let labelKeywords = this.stringToKeywords(label);
 
-        if (label in this.alternateInputDataLabels) {
-            labelKeywords = labelKeywords.concat(this.alternateInputDataLabels[label]);
+        if (label in this.config.alternateDataNames) {
+            labelKeywords = labelKeywords.concat(this.config.alternateDataNames[label]);
         }
 
         return labelKeywords;
     }
 
-    populateFormField(name, value) {
-        this.inputs.forEach(field => {
-            if (field.keywords.indexOf(name) != -1) {
+    populateFormField(field, value) {
+        if (field == undefined) {
+            return;
+        }
 
-                field.field.setValue(value, this.currentResult)
-            }
-        });
+        field.setValue(value, this.currentResult)
     }
 }
 

@@ -9,6 +9,7 @@
     "babelify": "^6.1.2",
     "browserify": "^10.2.3",
     "del": "^1.1.1",
+    "fuzzy": "^0.1.0",
     "gulp": "^3.8.11",
     "gulp-babel": "^5.1.0",
     "gulp-bower": "0.0.10",
@@ -26,6 +27,7 @@
     "minimist": "^1.1.1",
     "mustache": "^2.1.0",
     "system": "^1.0.2",
+    "underscore": "^1.8.3",
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0"
   }

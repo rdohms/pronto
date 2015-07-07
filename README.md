@@ -27,4 +27,3 @@ Once you have setup the api, clicking the button on the extension bar should lis
 By clicking on the icon next to it should fill the form and show you a summary.
 
 ![summary](extension/resources/summary.jpg)
-§

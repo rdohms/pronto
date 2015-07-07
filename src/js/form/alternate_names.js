@@ -1,15 +1,21 @@
-export var inputDataNames = {
-    title: ['name'],
-    outline: ['abstract', 'describe'],
-    organizer_notes: ['notes', 'additional'],
-    level: ['audience']
-}
+module.exports = {
 
-export var typeNames = {
-    seminar: ['name'],
-    keynote: ['abstract']
-}
+    alternateDataNames: {
+        title: ['name', 'talk title'],
+        description: ['abstract', 'describe'],
+        organizer_notes: ['notes', 'additional', 'why accept', 'comments'],
+        level: ['audience']
+    },
 
-export var levelNames = {
-    beginner: ['name']
+    talkTypes: {
+        seminar: ['name'],
+        keynote: ['abstract']
+    },
+
+    talkLevels: {
+        beginner: ['name']
+    },
+
+    ignoredData: ['created_at', 'updated_at']
+
 }
