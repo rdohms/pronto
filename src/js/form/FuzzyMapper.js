@@ -59,7 +59,7 @@ class FuzzyMapper {
         matches.sort(function (a,b) {
             return b.score - a.score
         });
-
+        
         let selected_field = matches.shift();
 
         if (selected_field == undefined) {

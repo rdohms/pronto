@@ -1,3 +1,5 @@
+var _ = require('underscore');
+
 class FormField {
 
     constructor(input) {
@@ -16,12 +18,29 @@ class FormField {
         this.input.addClass("pronto-located");
     }
 
-    setValue(value, result) {
+    setValue(value, property, result) {
 
         if (result.wasFilled(this)) {
             return;
         }
 
+        if (this.input.is('select')) {
+            this.fillDropdown(value, property, result);
+        } else if (this.input.is(':checkbox')) {
+            this.fillRegular(value, property, result);
+            //TODO: handle checkboxes
+        } else if (this.input.is(':radio')) {
+            this.fillRegular(value, property, result);
+            //TODO: handle radios
+        } else {
+            this.fillRegular(value, property, result);
+        }
+
+        this.highlightFilled();
+        result.addFilledField(this);
+    }
+
+    fillRegular(value, property, result) {
         let currentValue = this.input.val();
 
         if (currentValue !== null && currentValue.length != 0) {
@@ -31,10 +50,21 @@ class FormField {
         }
 
         this.input.val(value);
-        //TODO: this will expand to handle dropdowns, radios, etc..
+    }
 
-        this.highlightFilled();
-        result.addFilledField(this);
+    fillDropdown(value, property, result) {
+        let dataCfg = require("./alternate_names");
+
+        let allValues = dataCfg.alternateOptions[property][value];
+        allValues.push(value);
+
+        _.each(allValues, (possibleValue) => {
+            if (this.input.children(`option[value='${possibleValue}']`).length == 0) {
+                return;
+            }
+
+            this.input.val(possibleValue);
+        });
     }
 }
 

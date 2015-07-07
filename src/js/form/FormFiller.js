@@ -90,7 +90,7 @@ class FormFiller {
             }
 
             let field = mapper.match(this.expandDataLabelKeywords(key));
-            this.populateFormField(field, talkData[key]);
+            this.populateFormField(field, talkData[key], key);
         }
 
         this.currentResult.displaySummary();
@@ -106,12 +106,12 @@ class FormFiller {
         return labelKeywords;
     }
 
-    populateFormField(field, value) {
+    populateFormField(field, value, property) {
         if (field == undefined) {
             return;
         }
 
-        field.setValue(value, this.currentResult)
+        field.setValue(value, property, this.currentResult)
     }
 }
 
