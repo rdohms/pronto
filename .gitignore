@@ -2,6 +2,7 @@ extension/build/
 bower_components/
 node_modules/
 samples/
+config/production.js
 dist/
 npm-debug.log
 extension.crx
