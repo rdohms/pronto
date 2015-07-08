@@ -1,4 +1,4 @@
-module.exports = {
+export default {
 
     alternateDataNames: {
         title: ['name', 'talk title'],

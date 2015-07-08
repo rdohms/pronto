@@ -1,4 +1,4 @@
-module.exports = {
+export default {
     base_url: "http://symp.oss.dev",
     client_id: "1",
     client_secret: "hoihfoipqwe",
