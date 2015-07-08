@@ -1,5 +1,5 @@
-import {FormField} from "./FormField";
-var $ = require('jquery');
+import FormField from "./FormField";
+import $ from 'jquery';
 
 class Result {
 
@@ -51,4 +51,4 @@ class Result {
 
 }
 
-export {Result};
+export default Result;

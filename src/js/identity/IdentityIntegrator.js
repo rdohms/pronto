@@ -1,4 +1,4 @@
-var $ = require('jquery');
+import $ from 'jquery';
 
 class IdentityIntegrator {
 
@@ -75,4 +75,4 @@ class IdentityIntegrator {
     }
 }
 
-export {IdentityIntegrator};
+export default IdentityIntegrator;

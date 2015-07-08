@@ -1,4 +1,4 @@
-let debug = require('../helper/Debug');
+import debug from '../helper/Debug';
 
 class TokenStorage {
     constructor() {
@@ -49,4 +49,4 @@ class TokenStorage {
     }
 }
 
-export {TokenStorage};
+export default TokenStorage;

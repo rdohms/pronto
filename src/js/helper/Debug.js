@@ -13,4 +13,6 @@ class Debug {
 }
 
 var settings = require('../../../extension/build/js/config.js');
-module.exports = new Debug(settings.debug);
+let debug = new Debug(settings.debug);
+
+export default debug;

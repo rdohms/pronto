@@ -25,4 +25,4 @@ module.exports = {
 
     ignoredData: ['created_at', 'updated_at']
 
-}
+};

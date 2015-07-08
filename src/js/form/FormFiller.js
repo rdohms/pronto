@@ -1,9 +1,8 @@
-import {FormField} from "./FormField";
-import {Result} from "./Result";
-import {FuzzyMapper} from "./FuzzyMapper";
-
-let debug = require('../helper/Debug');
-var $ = require('jquery');
+import FormField from "./FormField";
+import Result from "./Result";
+import FuzzyMapper from "./FuzzyMapper";
+import debug from '../helper/Debug';
+import $ from 'jquery';
 
 class FormFiller {
 
@@ -115,4 +114,4 @@ class FormFiller {
     }
 }
 
-export {FormFiller};
+export default FormFiller;

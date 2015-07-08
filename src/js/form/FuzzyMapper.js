@@ -1,6 +1,6 @@
-var fuzzy = require('fuzzy');
-let debug = require('../helper/Debug');
-var _ = require('underscore');
+import fuzzy from 'fuzzy';
+import debug from '../helper/Debug';
+import _ from 'underscore';
 
 class FuzzyMapper {
 
@@ -73,4 +73,4 @@ class FuzzyMapper {
     }
 }
 
-export {FuzzyMapper};
+export default FuzzyMapper;

@@ -1,5 +1,5 @@
-var $ = require('jquery');
-let debug = require('../helper/Debug');
+import $ from 'jquery';
+import debug from '../helper/Debug';
 
 class Popup {
 
@@ -58,4 +58,4 @@ class Popup {
 
 }
 
-export {Popup};
+export default Popup;

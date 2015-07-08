@@ -1,5 +1,5 @@
-var $ = require('jquery');
-let debug = require('../helper/Debug');
+import $ from 'jquery';
+import debug from '../helper/Debug';
 
 class SymposiumApiClient {
     constructor(base_url, storage) {
@@ -136,4 +136,4 @@ class SymposiumApiClient {
     }
 }
 
-export {SymposiumApiClient};
+export default SymposiumApiClient;

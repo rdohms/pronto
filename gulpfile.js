@@ -29,7 +29,7 @@ var _is_dev_mode = false;
 
 var onError = function(err) {
     console.log(err.toString());
-    this.emit('end');
+    this.end ? this.end() : this.emit('end');
 };
 
 var knownOptions = {
@@ -123,9 +123,7 @@ gulp.task("compile:js:content", ['copy:js'], function () {
            })
            .transform(babelify)
            .bundle()
-           .pipe(plumber({
-               errorHandler: onError
-           }))
+           .on('error', onError)
            .pipe(source('pronto-content.js'))
            .pipe(buffer())
            .pipe(sourcemaps.init({ loadMaps: true}))
@@ -140,9 +138,7 @@ gulp.task("compile:js:popup", ['copy:js'], function () {
            })
            .transform(babelify)
            .bundle()
-           .pipe(plumber({
-               errorHandler: onError
-           }))
+            .on('error', onError)
            .pipe(source('pronto-popup.js'))
            .pipe(buffer())
            .pipe(sourcemaps.init({ loadMaps: true}))
@@ -157,9 +153,7 @@ gulp.task("compile:js:options", ['copy:js'], function () {
            })
            .transform(babelify)
            .bundle()
-           .pipe(plumber({
-               errorHandler: onError
-           }))
+            .on('error', onError)
            .pipe(source('pronto-options.js'))
            .pipe(buffer())
            .pipe(sourcemaps.init({ loadMaps: true}))

@@ -1,5 +1,5 @@
-var $ = require('jquery');
-let debug = require('../helper/Debug');
+import $ from 'jquery';
+import debug from '../helper/Debug';
 
 class TokenFetcher {
 
@@ -128,4 +128,4 @@ class TokenFetcher {
     }
 }
 
-export {TokenFetcher};
+export default TokenFetcher;

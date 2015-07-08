@@ -1,4 +1,4 @@
-var _ = require('underscore');
+import _ from 'underscore';
 
 class FormField {
 
@@ -68,4 +68,4 @@ class FormField {
     }
 }
 
-export {FormField};
+export default FormField;

@@ -1,5 +1,5 @@
-var $        = require('jquery');
-var Mustache = require('mustache');
+import $ from 'jquery';
+import Mustache from 'mustache';
 
 class TalkLister {
 
