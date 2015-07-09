@@ -1,3 +1,5 @@
+import settings from '../../../extension/build/js/config.js';
+
 class Debug {
     constructor (enabled) {
         this.enabled = enabled;
@@ -12,7 +14,4 @@ class Debug {
     }
 }
 
-var settings = require('../../../extension/build/js/config.js');
-let debug = new Debug(settings.debug);
-
-export default debug;
+export default new Debug(settings.debug);

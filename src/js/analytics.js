@@ -1,4 +1,4 @@
-let settings = require('../../extension/build/js/config.js');
+import settings from'../../extension/build/js/config.js';
 import debug from './helper/Debug';
 
 (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){

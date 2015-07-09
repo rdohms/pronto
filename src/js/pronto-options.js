@@ -6,8 +6,7 @@ import ga from './analytics.js';
 import settings from '../../extension/build/js/config.js';
 
 let storage  = new TokenStorage();
-let api = new SymposiumApiClient(settings.base_url, storage);
-
+let api      = new SymposiumApiClient(settings.base_url, storage);
 let fetcher  = new TokenFetcher(
     settings.client_id,
     settings.client_secret,

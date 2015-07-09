@@ -1,4 +1,5 @@
 import _ from 'underscore';
+import dataCfg from "./alternate_names";
 
 class FormField {
 
@@ -53,7 +54,7 @@ class FormField {
     }
 
     fillDropdown(value, property, result) {
-        let dataCfg = require("./alternate_names");
+
 
         let allValues = dataCfg.alternateOptions[property][value];
         allValues.push(value);

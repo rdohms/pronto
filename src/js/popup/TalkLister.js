@@ -89,4 +89,4 @@ class TalkLister {
 
 }
 
-export {TalkLister};
+export default TalkLister;
