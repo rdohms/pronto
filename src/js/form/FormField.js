@@ -55,7 +55,6 @@ class FormField {
 
     fillDropdown(value, property, result) {
 
-
         let allValues = dataCfg.alternateOptions[property][value];
         allValues.push(value);
 
