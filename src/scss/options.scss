@@ -1,0 +1,12 @@
+@import "../css/fancy-settings.css";
+
+body {
+    min-width: 800px;
+    min-height: 350px;
+}
+
+#tab-container { top: 0 !important; }
+#settings-label { display: none; }
+#icon { display: none; }
+
+.tab-content > h2 { font-size: 130%; }

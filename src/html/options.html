@@ -1,11 +1,32 @@
 <!doctype html>
 <html>
   <head>
-    <title>Pronto! - Options</title>
+    <title id="title"></title>
 
+    <link id="favicon" rel="icon" href="">
     <link rel="stylesheet" href="../css/font-awesome.css">
+    <link rel="stylesheet" href="../css/options.css">
+
   </head>
-  <body>
+  <body class="no-select">
+        <div id="sidebar" class="fancy">
+            <img id="icon" src="" alt=""><h1 id="settings-label"></h1>
+            <div id="tab-container">
+                <div id="search-container" class="tab">
+                    <input id="search" type="search" placeholder="">
+                </div>
+            </div>
+        </div>
+        <div id="content">
+            <div id="search-result-container" class="tab-content">
+                <h2 id="search-label"></h2>
+            </div>
+        </div>
+
+        <script src="../js/fancy-settings.js"></script>
+        <script src="../js/pronto-options.js"></script>
+    </body>
+  <!-- <body>
 
       <p>Pronto! uses OAuth to communicate with Symposium.</p>
 
@@ -22,6 +43,23 @@
           <i class="fa fa-spin fa-gear" style="font-size: 150%;"></i> talking to API, hang on please...
       </p>
 
-    <script src="../js/pronto-options.js"></script>
-  </body>
+     <h2>Custom Symposium</h2>
+
+     <p>
+         <label for="custom_endpoint">Endpoint</label>
+         <input type="text" name="custom_endpoint" />
+     </p>
+
+     <p>
+         <label for="custom_client_id">Client ID</label>
+         <input type="text" name="custom_client_id" />
+     </p>
+
+     <p>
+         <label for="custom_client_secret">Client Secret</label>
+         <input type="text" name="custom_client_secret" />
+     </p>
+
+
+  </body> -->
 </html>

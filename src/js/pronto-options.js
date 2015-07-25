@@ -4,6 +4,7 @@ import TokenFetcher from "./identity/TokenFetcher";
 import IdentityIntegrator from "./identity/IdentityIntegrator";
 import ga from './analytics.js';
 import settings from '../../extension/build/js/config.js';
+import ProntoSettings from './options/ProntoSettings';
 
 let storage  = new TokenStorage();
 let api      = new SymposiumApiClient(settings.base_url, storage);

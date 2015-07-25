@@ -12,6 +12,7 @@
   "devDependencies": {
     "bourbon": "~4.2.1",
     "fontawesome": "~4.3.0",
-    "bootstrap-sass": "~3.3.4"
+    "bootstrap-sass": "~3.3.4",
+    "fancy-settings": "altryne/fancy-settings#~1.1.3"
   }
 }

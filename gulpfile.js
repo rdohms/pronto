@@ -19,33 +19,34 @@ var bump = require('gulp-bump');
 var minimist = require('minimist');
 var fs = require('fs');
 var buffer = require('vinyl-buffer');
+var jscs = require('gulp-jscs');
+var jshint = require('gulp-jshint');
 
-// var jscs = require('gulp-jscs');
-// var jshint = require('gulp-jshint');
-//var mocha = require('gulp-mocha');
-// var webpack = require('gulp-webpack');
+var knownOptions = {
+  string: ['rel'],
+  boolean: ['dev'],
+  default: { rel: 'patch', dev: false }
+};
 
-var _is_dev_mode = false;
+var options = minimist(process.argv.slice(2), knownOptions);
+
+var _config_file = "";
+var _is_dev_mode = options.dev;
 
 var onError = function(err) {
     console.log(err.toString());
     this.end ? this.end() : this.emit('end');
 };
 
-var knownOptions = {
-  string: 'rel',
-  default: { rel: 'patch' }
-};
-
-var options = minimist(process.argv.slice(2), knownOptions);
-
-var _config_file = "";
-
 /* ################################################################
  * META TASKS
  * ################################################################ */
 
-gulp.task('default', ['config:load', 'bower', 'build:js', 'build:css', 'build:html']);
+gulp.task('default', ['current_mode', 'config:load', 'bower', 'build:js', 'build:css', 'build:html']);
+
+gulp.task('current_mode', function() {
+    console.log((_is_dev_mode)? 'Development Mode':'Production Mode');
+});
 
 gulp.task('bower', function() {
     return bower();
@@ -61,11 +62,7 @@ gulp.task('config:load', function() {
 
 gulp.task('clean', ['clean:js', 'clean:css']);
 
-gulp.task('devmode', function() {
-    _is_dev_mode = true;
-});
-
-gulp.task('watch', ['devmode', 'default'], function() {
+gulp.task('watch', ['default'], function() {
     gulp.watch('./src/scss/**/*.scss', ['build:css']);
     gulp.watch('./src/**/*.js', ['build:js']);
     gulp.watch('./config/**/*.js', ['build:js']);
@@ -93,28 +90,40 @@ gulp.task('copy:html', ['clean:html'], function () {
  * ################################################################ */
 
 gulp.task('build:js', [
+    'lint:js',
     'copy:js',
+    'compile:js:fancy-settings',
     'compile:js:popup',
     'compile:js:content',
     'compile:js:options'
 ]);
 
-// gulp.task('build:js', ['lint:js', /* 'test:js', */ 'copy:js', 'bundle:js']);
-// gulp.task('lint:js', ['jscs', 'jshint']);
-// gulp.task('test:js', [/*'flow', */ 'mocha']);
-//
+gulp.task('lint:js', ['jscs']);
+
 // gulp.task('clean:js', function (cb) {
 //     del(['./web/js', './web/assets/js'], cb);
 // });
-//
-//
+
+gulp.task('jscs', function() {
+    return gulp.src('./src/**/*.js')
+        .on('error', onError)
+        .pipe(jscs({
+            'excludeFiles': ['*-min.js'],
+            'esnext': true
+        }));
+});
+
+// gulp.task('jshint', function() {
+//     return gulp.src('./src/**/*.js')
+//         .pipe(jshint({esnext: true}))
+//         .pipe(jshint.reporter('default'));
+// });
+
 gulp.task('copy:js', ['bower', 'config:load'], function () {
     return gulp.src([
         './bower_components/bootstrap-sass/assets/javascripts/bootstrap.min.js'
     ]).pipe(gulp.dest('./extension/build/js'));
 });
-
-
 
 gulp.task("compile:js:content", ['copy:js'], function () {
     return browserify({
@@ -153,60 +162,28 @@ gulp.task("compile:js:options", ['copy:js'], function () {
            })
            .transform(babelify)
            .bundle()
-            .on('error', onError)
+           .on('error', onError)
            .pipe(source('pronto-options.js'))
            .pipe(buffer())
            .pipe(sourcemaps.init({ loadMaps: true}))
            .pipe(sourcemaps.write("."))
            .pipe(gulp.dest("extension/build/js"));
 });
-//
-// gulp.task('bundle:js', ['bower', 'clean:js'], function () {
-//     return gulp.src('./build/js/main.js')
-//         .pipe(webpack({
-//             output: {
-//                 filename: 'main.js'
-//             },
-//             externals: {
-//                 // require("jquery") is external and available
-//                 //  on the global var jQuery
-//                 "jquery": "jQuery"
-//             }
-//         }))
-//         .pipe(gulp.dest('./web/js'));
-// });
-//
-//
-// gulp.task('jscs', function() {
-//     return gulp.src('./app/Resources/js/**/*.js')
-//         .pipe(plumber({
-//             errorHandler: onError
-//         }))
-//         .pipe(jscs({
-//             'excludeFiles': ['*-min.js'],
-//         }));
-// });
-//
-//
-// gulp.task('jshint', function() {
-//     return gulp.src('./app/Resources/js/**/*.js')
-//         .pipe(jshint('.jshintrc'))
-//         .pipe(jshint.reporter('default'));
-// });
-//
-//
-// //gulp.task('mocha', function(cb) {
-//     //return gulp.src('./test/mocha/*.js', {read: false})
-//         //.pipe(mocha({reporter: 'mocha-silent-reporter'}));
-// //});
-//
+
+gulp.task('compile:js:fancy-settings', ['copy:js'], function() {
+    return gulp.src([
+        './bower_components/fancy-settings/source/lib/**/*.js',
+        './bower_components/fancy-settings/source/js/**/*.js'
+    ])
+    .pipe(concat('fancy-settings.js'))
+    .pipe(gulp.dest('extension/build/js'))
+});
 
 /* ################################################################
  * SCSS/CSS TASKS
  * ################################################################ */
 
-gulp.task('build:css', ['scss', 'minify:css', 'fontawesome']);
-
+gulp.task('build:css', ['copy:css', 'scss', 'minify:css', 'fontawesome']);
 
 gulp.task('fontawesome', ['bower', 'scss'], function () {
     var fonts = gulp.src('./bower_components/fontawesome/fonts/*')
@@ -218,6 +195,15 @@ gulp.task('fontawesome', ['bower', 'scss'], function () {
     return merge(fonts, css);
 });
 
+gulp.task('copy:css', ['bower', 'config:load'], function () {
+    return gulp.src([
+        './bower_components/fancy-settings/source/lib/default.css',
+        './bower_components/fancy-settings/source/css/main.css',
+        './bower_components/fancy-settings/source/css/setting.css'
+    ])
+    .pipe(concat('fancy-settings.css'))
+    .pipe(gulp.dest('./extension/build/css'));
+});
 
 gulp.task('clean:css', function (cb) {
     del(['./extension/build/css'], cb);
@@ -227,11 +213,10 @@ gulp.task('clean:css', function (cb) {
 gulp.task('scss', ['bower', 'clean:css'], function () {
     var stream = gulp.src([
         './src/scss/popup.scss',
-        './src/scss/injected.scss'
+        './src/scss/injected.scss',
+        './src/scss/options.scss'
         ])
-        .pipe(plumber({
-            errorHandler: onError
-        }));
+        .on('error', onError);
 
     if (_is_dev_mode) {
         stream = stream.pipe(sourcemaps.init());
