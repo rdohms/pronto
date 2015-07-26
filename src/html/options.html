@@ -1,65 +1,56 @@
 <!doctype html>
 <html>
-  <head>
+
+<head>
     <title id="title"></title>
 
     <link id="favicon" rel="icon" href="">
     <link rel="stylesheet" href="../css/font-awesome.css">
     <link rel="stylesheet" href="../css/options.css">
+</head>
 
-  </head>
-  <body class="no-select">
-        <div id="sidebar" class="fancy">
-            <img id="icon" src="" alt=""><h1 id="settings-label"></h1>
-            <div id="tab-container">
-                <div id="search-container" class="tab">
-                    <input id="search" type="search" placeholder="">
-                </div>
-            </div>
+<body>
+
+    <h3>Authentication</h3>
+
+    <div class="logged_in">
+        <p>You are currently logged in as <span id="info-fullname">Rafael Dohms</span></p>
+        <button id="btn-logout" class="btn btn-danger">Logout</button>
+    </div>
+
+    <div class="not_logged_in">
+        <button id="btn-login" class="btn btn-success">Login</button>
+        or
+        <button id="btn-register" class="btn btn-default">Register at Symposiumapp.com</button>
+    </div>
+
+    <div class="loading">
+        <i class="fa fa-spin fa-gear" style="font-size: 150%;"></i> talking to API, hang on please...
+    </div>
+
+    <h3>Custom Symposium Install</h3>
+
+    <form>
+        <span class="help-block">If you wish to use a self hosted version of Symposium, please adjust the values below to your configurations.</span>
+
+        <div class="form-group has-feedback">
+            <label for="base_url">Base Url</label>
+            <input type="text" class="form-control" id="base_url" placeholder="http://symposiumapp.com">
+            <span class="fa form-control-feedback"></span>
         </div>
-        <div id="content">
-            <div id="search-result-container" class="tab-content">
-                <h2 id="search-label"></h2>
-            </div>
+        <div class="form-group has-feedback">
+            <label for="client_id">Client ID</label>
+            <input type="text" class="form-control" id="client_id" placeholder="">
+            <span class="fa form-control-feedback"></span>
         </div>
+        <div class="form-group has-feedback">
+            <label for="client_secret">Client Secret</label>
+            <input type="text" class="form-control" id="client_secret" placeholder="">
+            <span class="fa form-control-feedback"></span>
+        </div>
+    </form>
 
-        <script src="../js/fancy-settings.js"></script>
-        <script src="../js/pronto-options.js"></script>
-    </body>
-  <!-- <body>
+    <script src="../js/pronto-options.js"></script>
+</body>
 
-      <p>Pronto! uses OAuth to communicate with Symposium.</p>
-
-
-      <p id="logged">
-          Logged in as <span class="user-name"></span> &nbsp;&nbsp;<button id="logout-btn">Disconnect</button>
-      </p>
-
-      <p id="login">
-          <button id="login-btn">Login</button> or <a href="http://symposiumapp.com/sign-up">Register on SymposiumApp</a>
-      </p>
-
-      <p id="loading">
-          <i class="fa fa-spin fa-gear" style="font-size: 150%;"></i> talking to API, hang on please...
-      </p>
-
-     <h2>Custom Symposium</h2>
-
-     <p>
-         <label for="custom_endpoint">Endpoint</label>
-         <input type="text" name="custom_endpoint" />
-     </p>
-
-     <p>
-         <label for="custom_client_id">Client ID</label>
-         <input type="text" name="custom_client_id" />
-     </p>
-
-     <p>
-         <label for="custom_client_secret">Client Secret</label>
-         <input type="text" name="custom_client_secret" />
-     </p>
-
-
-  </body> -->
 </html>

@@ -1,10 +1,10 @@
 import SymposiumApiClient from "./api/SymposiumApiClient";
 import TokenStorage from "./identity/TokenStorage";
 import TokenFetcher from "./identity/TokenFetcher";
-import IdentityIntegrator from "./identity/IdentityIntegrator";
+import ProntoOptions from "./options/ProntoOptions";
+import option_storage from "./options/OptionStorage";
 import ga from './analytics.js';
 import settings from '../../extension/build/js/config.js';
-import ProntoSettings from './options/ProntoSettings';
 
 let storage  = new TokenStorage();
 let api      = new SymposiumApiClient(settings.base_url, storage);
@@ -15,6 +15,6 @@ let fetcher  = new TokenFetcher(
     storage
 );
 
-let identity = new IdentityIntegrator(fetcher, api);
+let identity = new ProntoOptions(fetcher, api, option_storage);
 
 ga('send', 'pageview', '/options.html');

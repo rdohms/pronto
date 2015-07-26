@@ -17,7 +17,7 @@
   },
   "options_ui": {
     "page": "build/html/options.html",
-    "chrome_style": false
+    "chrome_style": true
   },
   "permissions": [
     "activeTab",

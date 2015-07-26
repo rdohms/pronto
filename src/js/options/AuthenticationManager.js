@@ -1,8 +1,7 @@
 import $ from 'jquery';
 
-class IdentityIntegrator {
-
-    constructor (fetcher, api) {
+class AuthenticationManager {
+    constructor(fetcher, api) {
         this.fetcher = fetcher;
         this.api = api;
 
@@ -11,16 +10,25 @@ class IdentityIntegrator {
 
     _setup() {
 
-        this.loggedInDiv = $('#logged');
-        this.loginDiv    = $('#login');
-        this.loading     = $('#loading');
+        this.loggedInDiv = $('.logged_in');
+        this.loginDiv = $('.not_logged_in');
+        this.loading = $('.loading');
 
-        this.userName = $('.user-name');
-        this.logoutBtn = $('#logout-btn');
-        this.loginBtn  = $('#login-btn');
+        this.userName = $('.info-fullname');
+        this.logoutBtn = $('#btn-logout');
+        this.loginBtn = $('#btn-login');
+        this.registerBtn = $('#btn-register');
 
         this.loading.hide();
 
+        this._attachButtonActions();
+
+        this.fetcher.storage.hasToken().then(hasToken => {
+            this.toggleOptions(hasToken);
+        });
+    }
+
+    _attachButtonActions() {
         this.loginBtn.on("click", e => {
             this.loading.slideDown();
             this.loginDiv.hide();
@@ -32,8 +40,8 @@ class IdentityIntegrator {
             this.toggleOptions(false);
         });
 
-        this.fetcher.storage.hasToken().then(hasToken => {
-            this.toggleOptions(hasToken);
+        this.registerBtn.on("click", e => {
+            window.location.href = 'http://symposiumapp.com/sign-up';
         });
     }
 
@@ -75,4 +83,4 @@ class IdentityIntegrator {
     }
 }
 
-export default IdentityIntegrator;
+export default AuthenticationManager;

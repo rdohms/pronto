@@ -1,12 +1,19 @@
-@import "../css/fancy-settings.css";
+@import "variables";
+
+$font-size-base: 12px;
+
+@import "../../bower_components/bootstrap-sass/assets/stylesheets/bootstrap";
+@import "../../bower_components/bourbon/app/assets/stylesheets/bourbon";
+
+@import "utils/normalize.scss";
 
 body {
     min-width: 800px;
     min-height: 350px;
+
+    margin: 15px;
 }
 
-#tab-container { top: 0 !important; }
-#settings-label { display: none; }
-#icon { display: none; }
-
-.tab-content > h2 { font-size: 130%; }
+#info-fullname {
+    font-weight: bold;
+}
