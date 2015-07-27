@@ -92,7 +92,6 @@ gulp.task('copy:html', ['clean:html'], function () {
 gulp.task('build:js', [
     'lint:js',
     'copy:js',
-    'compile:js:fancy-settings',
     'compile:js:popup',
     'compile:js:content',
     'compile:js:options'
@@ -170,20 +169,11 @@ gulp.task("compile:js:options", ['copy:js'], function () {
            .pipe(gulp.dest("extension/build/js"));
 });
 
-gulp.task('compile:js:fancy-settings', ['copy:js'], function() {
-    return gulp.src([
-        './bower_components/fancy-settings/source/lib/**/*.js',
-        './bower_components/fancy-settings/source/js/**/*.js'
-    ])
-    .pipe(concat('fancy-settings.js'))
-    .pipe(gulp.dest('extension/build/js'))
-});
-
 /* ################################################################
  * SCSS/CSS TASKS
  * ################################################################ */
 
-gulp.task('build:css', ['copy:css', 'scss', 'minify:css', 'fontawesome']);
+gulp.task('build:css', ['scss', 'minify:css', 'fontawesome']);
 
 gulp.task('fontawesome', ['bower', 'scss'], function () {
     var fonts = gulp.src('./bower_components/fontawesome/fonts/*')
@@ -193,16 +183,6 @@ gulp.task('fontawesome', ['bower', 'scss'], function () {
         .pipe(gulp.dest('./extension/build/css'));
 
     return merge(fonts, css);
-});
-
-gulp.task('copy:css', ['bower', 'config:load'], function () {
-    return gulp.src([
-        './bower_components/fancy-settings/source/lib/default.css',
-        './bower_components/fancy-settings/source/css/main.css',
-        './bower_components/fancy-settings/source/css/setting.css'
-    ])
-    .pipe(concat('fancy-settings.css'))
-    .pipe(gulp.dest('./extension/build/css'));
 });
 
 gulp.task('clean:css', function (cb) {
@@ -233,8 +213,6 @@ gulp.task('scss', ['bower', 'clean:css'], function () {
     stream = stream.pipe(gulp.dest('./extension/build/css'));
     return stream;
 });
-
-
 
 gulp.task('minify:css', ['scss'], function() {
     if (_is_dev_mode) {
