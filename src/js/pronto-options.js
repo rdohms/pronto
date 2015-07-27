@@ -4,17 +4,21 @@ import TokenFetcher from "./identity/TokenFetcher";
 import ProntoOptions from "./options/ProntoOptions";
 import option_storage from "./options/OptionStorage";
 import ga from './analytics.js';
-import settings from '../../extension/build/js/config.js';
+import settings from './options/SettingsReader';
 
-let storage  = new TokenStorage();
-let api      = new SymposiumApiClient(settings.base_url, storage);
-let fetcher  = new TokenFetcher(
-    settings.client_id,
-    settings.client_secret,
-    settings.base_url,
-    storage
-);
+settings.load().then( () => {
 
-let identity = new ProntoOptions(fetcher, api, option_storage);
+    let token_storage  = new TokenStorage();
+    let api      = new SymposiumApiClient(settings.get('base_url'), token_storage);
+    let fetcher  = new TokenFetcher(
+        settings.get('client_id'),
+        settings.get('client_secret'),
+        settings.get('base_url'),
+        token_storage
+    );
 
-ga('send', 'pageview', '/options.html');
+    let options = new ProntoOptions(fetcher, api, option_storage);
+
+    ga('send', 'pageview', '/options.html');
+
+});

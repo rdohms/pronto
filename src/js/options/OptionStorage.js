@@ -57,6 +57,14 @@ class OptionStorage {
         chrome.storage.sync.remove(this._convertKey(key));
     }
 
+    all() {
+        return new Promise((resolve, reject) => {
+            chrome.storage.sync.get(null, (items) => {
+                resolve(items);
+            })
+        })
+    }
+
     _convertKey(key) {
 
         return 'pronto_option_'+key;
