@@ -5,7 +5,6 @@ class TalkLister {
 
     constructor (api) {
         this.api = api;
-        this.base_url = "http://symp.oss.dev";
     }
 
     _renderTalk(talk) {
@@ -25,7 +24,7 @@ class TalkLister {
     }
 
     _activateButtons() {
-        var fillButtons = document.querySelectorAll('.fill-this-talk');
+        var fillButtons = document.querySelectorAll('.talk');
 
         for (var i = 0; i < fillButtons.length; i++) {
             fillButtons[i].addEventListener('click', e => {
@@ -48,7 +47,7 @@ class TalkLister {
     }
 
     populateList() {
-        $(".loading-talks").show();
+        $(".loading-warning").show();
 
         this.api.getUserTalks(
             (data) => {
@@ -61,7 +60,7 @@ class TalkLister {
 
                 this._activateButtons();
 
-                $(".loading-talks").fadeOut();
+                $(".loading-warning").fadeOut();
             },
             (data) => {
 
@@ -72,7 +71,7 @@ class TalkLister {
                 });
 
                 $(".talk-list > ul").html(rendered);
-                $(".loading-talks").fadeOut();
+                $(".loading-warning").fadeOut();
             }
         );
     }

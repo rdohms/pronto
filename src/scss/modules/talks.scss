@@ -1,0 +1,84 @@
+#talks {
+    min-height: 200px
+}
+
+.loading-warning {
+
+    z-index: 999;
+    @include position(fixed, 50% null null 50% );
+    @include transform(translate(-50%, -50%));
+    @extend .text-center;
+
+    color: #fff;
+    font-size: 60px;
+    background-color: rgba(0, 0, 0, 0.65);
+    display: block;
+
+    padding: 15px 30px;
+
+    @include border-top-radius(5px);
+    @include border-right-radius(5px);
+    @include border-bottom-radius(5px);
+    @include border-left-radius(5px);
+
+    i{
+        font-size: 100%;
+    }
+}
+
+.talk-list {
+    ul {
+        @extend .list-unstyled;
+    }
+}
+
+.talk {
+
+    @include make-row();
+    margin-top: 8px;
+
+    cursor: pointer;
+    padding: 4px 0px;
+
+    @include border-top-radius(5px);
+    @include border-right-radius(5px);
+    @include border-bottom-radius(5px);
+    @include border-left-radius(5px);
+
+    &:hover {
+        background-color: #eeeeee;
+    }
+
+    .talk-info {
+
+        @include make-xs-column(12);
+
+        .title {
+            font-size: 100%;
+            font-weight: bold;
+            display: block;
+            color: $pronto-dark-green;
+        }
+
+        .info {
+            font-size: 80%;
+            display: block;
+            color: #717171;
+        }
+
+    }
+
+    .actions {
+        float: right;
+        display: inline-block;
+        margin-top: 10px;
+
+        ul {
+            @extend .list-inline;
+        }
+
+        a {
+            color: $pronto-dark-green;
+        }
+    }
+}

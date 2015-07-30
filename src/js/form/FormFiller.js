@@ -24,6 +24,10 @@ class FormFiller {
                     this.fillForm(request.talk_data);
                     sendResponse({success: true, url: window.location.href});
                 }
+                if (request.type == "FILL_BIO") {
+                    this.fillForm(request.bio_data);
+                    sendResponse({success: true, url: window.location.href});
+                }
         });
     }
 
@@ -73,14 +77,14 @@ class FormFiller {
         return keywords;
     }
 
-    fillForm(talkData) {
+    fillForm(data) {
 
         let mapper = new FuzzyMapper(this.inputs);
         mapper.reset();
         this.currentResult = new Result();
 
-        for (var key in talkData) {
-            if (! talkData.hasOwnProperty(key)) {
+        for (var key in data) {
+            if (! data.hasOwnProperty(key)) {
                 continue;
             }
 
@@ -89,7 +93,7 @@ class FormFiller {
             }
 
             let field = mapper.match(this.expandDataLabelKeywords(key));
-            this.populateFormField(field, talkData[key], key);
+            this.populateFormField(field, data[key], key);
         }
 
         this.currentResult.displaySummary();

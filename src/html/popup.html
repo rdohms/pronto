@@ -1,63 +1,97 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
-  <head>
+
+<head>
     <title>Getting Started Extension's Popup</title>
     <link rel="stylesheet" href="../css/popup.css">
     <link rel="stylesheet" href="../css/font-awesome.css">
-  </head>
-  <body>
-      <nav class="navbar navbar-default">
-        <div class="container-fluid">
-          <div class="navbar-header">
-            <span class="navbar-brand" href="http://rdohms.github.io/pronto">
-              <img alt="Pronto!" src="../../resources/icon48.png">
-          </span>
-          </div>
-        </div>
-      </nav>
+</head>
 
-      <div class="content">
-          <span class="loading-talks"><i class="fa fa-cog fa-spin"></i> loading talks...</span>
-          <div class="talk-list">
-              <ul>
-                <!-- <li class="loading-talks"><i class="fa fa-cog fa-spin"></i> loading talks...</li> -->
-              </ul>
-          </div>
-          <div class="options-alert">
-              <p>We need to authenticate you with Symposium to grab your talk list.</p>
-              <button class="btn btn-default" id="go-to-options">Go to Options Page</button>
-          </div>
-      </div>
+<body class="no-select">
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <span class="navbar-brand" href="http://rdohms.github.io/pronto">
+                    <img alt="Pronto!" src="../../resources/icon48.png">
+                </span>
+            </div>
+        </div>
+    </nav>
+
+    <div class="content">
+
+        <span class="loading-warning"><i class="fa fa-cog fa-spin"></i></span>
+
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation"><a tabindex="-1" href="#talks" aria-controls="talks" role="tab" data-toggle="tab">Talks</a></li>
+            <li role="presentation" class="active"><a tabindex="-1" href="#bios" aria-controls="bios" role="tab" data-toggle="tab">Bios</a></li>
+        </ul>
+
+        <!-- Tab panes -->
+        <div class="tab-content">
+            <div role="tabpanel" class="tab-pane" id="talks">
+
+                <div class="talk-list">
+                    <ul>
+                        <!-- talks -->
+                    </ul>
+                </div>
+                <div class="options-alert">
+                    <p>We need to authenticate you with Symposium to grab your talk list.</p>
+                    <button class="btn btn-default" id="go-to-options">Go to Options Page</button>
+                </div>
+            </div>
+            <div role="tabpanel" class="tab-pane active" id="bios">
+                <div class="bio-list">
+                    <ul>
+                        <!-- bios -->
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <footer>
         <div class="row">
             <div class="col-xs-6">Made with <i class="fa fa-code"></i> by <a href="http://doh.ms" target="_blank" tabindex="-1">Rafael Dohms</a>.</div>
             <div class="col-xs-6 pull-right">
-                <ul class="list-inline pull-right"
-                    <li><a href="http://symposiumapp.com/">Go to SymposiumApp</a></li>
+                <ul class="list-inline pull-right" <li><a href="http://symposiumapp.com/">Go to SymposiumApp</a></li>
                     <li><a href="https://github.com/rdohms/pronto/issues" target="_blank" tabindex="-1"><i class="fa fa-bug"></i> Report bugs</a></li>
                 </ul>
             </div>
         </div>
     </footer>
 
-      <script type="text/html" id="pronto-talk-template">
-          <li class="talk">
-              <div class="talk-info">
-                  <span class="title">{{ title }}</span>
-                  <span class="info">{{ type }} / {{ level }} / {{ length }} mins</span>
-              </div>
-              <div class="actions">
-                  <a class="btn btn-default btn-sm fill-this-talk" data-talk-id="{{ id }}" href="#"><i class="fa fa-server"></i></a>
-              </div>
-          </li>
-     </script>
+    <script type="text/html" id="pronto-talk-template">
+        <li class="talk" data-talk-id="{{ id }}">
+            <div class="talk-info">
+                <span class="title">{{ title }}</span>
+                <span class="info">{{ type }} / {{ level }} / {{ length }} mins</span>
+            </div>
+        </li>
+    </script>
 
-     <script type="text/html" id="pronto-talk-error-template">
-         <li class="error">
-             <div class="message">{{ message }}</div>
-             <div class="details">{{ details }}</div>
-         </li>
+    <script type="text/html" id="pronto-bio-template">
+        <li class="bio" data-bio-id="{{ id }}">
+            <div>
+                <span class="actions">
+                    <ul>
+                        <li><a tabindex="-1" target="_blank" href="{{ view_link }}" data-toggle="tooltip" data-placement="top" title="View at Symposium"><i class="fa fa-eye"></i></a></li>
+                        <li><a tabindex="-1" target="_blank" href="{{ edit_link }}" data-toggle="tooltip" data-placement="top" title="Edit at Symposium"><i class="fa fa-pencil"></i></a></li>
+                    </ul>
+                </span>
+                <span class="title">{{ nickname }}</span>
+                <span class="summary">{{ short_description }}</span>
+            </div>
+        </li>
+    </script>
+
+    <script type="text/html" id="pronto-talk-error-template">
+        <li class="error">
+            <div class="message">{{ message }}</div>
+            <div class="details">{{ details }}</div>
+        </li>
     </script>
 
     <!--
@@ -67,5 +101,7 @@
       - [1]: https://developer.chrome.com/extensions/contentSecurityPolicy
      -->
     <script src="../js/pronto-popup.js"></script>
-  </body>
+    <script src="../js/bootstrap.js"></script>
+</body>
+
 </html>

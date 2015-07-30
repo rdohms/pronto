@@ -3,9 +3,10 @@ import debug from '../helper/Debug';
 
 class Popup {
 
-    constructor(talks, storage) {
+    constructor(talks, bios, storage) {
 
         this.talks = talks;
+        this.bios = bios;
         this.storage = storage;
 
         this._checkTokenPresence();
@@ -29,6 +30,7 @@ class Popup {
     _setup() {
         this._injectCodeInCurrentTab();
         this.talks.populateList();
+        this.bios.populateList();
     }
 
     _injectCodeInCurrentTab() {

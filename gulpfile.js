@@ -91,7 +91,7 @@ gulp.task('copy:html', ['clean:html'], function () {
 
 gulp.task('build:js', [
     'lint:js',
-    'copy:js',
+    'compile:js:bootstrap',
     'compile:js:popup',
     'compile:js:content',
     'compile:js:options'
@@ -118,13 +118,16 @@ gulp.task('jscs', function() {
 //         .pipe(jshint.reporter('default'));
 // });
 
-gulp.task('copy:js', ['bower', 'config:load'], function () {
+gulp.task('compile:js:bootstrap', ['bower', 'config:load'], function () {
     return gulp.src([
+        './bower_components/jquery/dist/jquery.js',
         './bower_components/bootstrap-sass/assets/javascripts/bootstrap.min.js'
-    ]).pipe(gulp.dest('./extension/build/js'));
+    ])
+    .pipe(concat('bootstrap.js'))
+    .pipe(gulp.dest('./extension/build/js'));
 });
 
-gulp.task("compile:js:content", ['copy:js'], function () {
+gulp.task("compile:js:content", [], function () {
     return browserify({
                 entries: './src/js/pronto-content.js',
                 debug: _is_dev_mode
@@ -139,7 +142,7 @@ gulp.task("compile:js:content", ['copy:js'], function () {
            .pipe(gulp.dest("extension/build/js"));
 });
 
-gulp.task("compile:js:popup", ['copy:js'], function () {
+gulp.task("compile:js:popup", [], function () {
     return browserify({
                 entries: './src/js/pronto-popup.js',
                 debug: _is_dev_mode
@@ -154,7 +157,7 @@ gulp.task("compile:js:popup", ['copy:js'], function () {
            .pipe(gulp.dest("extension/build/js"));
 });
 
-gulp.task("compile:js:options", ['copy:js'], function () {
+gulp.task("compile:js:options", [], function () {
     return browserify({
                 entries: './src/js/pronto-options.js',
                 debug: _is_dev_mode

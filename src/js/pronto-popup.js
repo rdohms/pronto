@@ -1,5 +1,6 @@
 import Popup from "./popup/Popup";
 import TalkLister from "./popup/TalkLister";
+import BioLister from "./popup/BioLister";
 import SymposiumApiClient from "./api/SymposiumApiClient";
 import TokenStorage from "./identity/TokenStorage";
 import ga from './analytics.js';
@@ -14,7 +15,12 @@ settings.load().then( () => {
     );
 
     let talks = new TalkLister(api);
-    let popup = new Popup(talks, storage);
+    let bios = new BioLister(api, settings);
+    let popup = new Popup(talks, bios, storage);
+
+    $(function () {
+      $('[data-toggle="tooltip"]').tooltip()
+    })
 
     ga('send', 'pageview', '/popup.html');
 
