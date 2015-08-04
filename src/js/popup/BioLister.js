@@ -1,5 +1,7 @@
+
 import $ from 'jquery';
 import Mustache from 'mustache';
+import debug from '../helper/Debug';
 
 class BioLister {
 
@@ -18,6 +20,7 @@ class BioLister {
             id: bio.id,
             nickname: bio.attributes.nickname,
             short_description: bio.attributes.body.substring(0, 100),
+            summary: bio.attributes.body,
             view_link: `${this.settings.get('base_url')}/bios/${bio.id}`,
             edit_link: `${this.settings.get('base_url')}/bios/${bio.id}/edit`
 
@@ -34,6 +37,13 @@ class BioLister {
                 this.triggerFormFill(e);
             });
         }
+
+        $('.btn-copy-bio').on('click', (e) => {
+            var Clipboard = require('clipboard-tool');
+            e.stopPropagation();
+            Clipboard.write($(e.currentTarget).data('summary'));
+            debug.log('[bio] copied');
+        });
     }
 
     _sendBioData(data) {
@@ -45,7 +55,7 @@ class BioLister {
                 }
             });
 
-            ga('send', 'event', 'bio', 'fill_requested', data.title);
+            ga('send', 'event', 'bio', 'fill_requested', data.nickname);
         });
     }
 

@@ -14,7 +14,7 @@ settings.load().then( () => {
         storage
     );
 
-    let talks = new TalkLister(api);
+    let talks = new TalkLister(api, settings);
     let bios = new BioLister(api, settings);
     let popup = new Popup(talks, bios, storage);
 

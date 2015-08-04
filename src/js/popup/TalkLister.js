@@ -3,8 +3,9 @@ import Mustache from 'mustache';
 
 class TalkLister {
 
-    constructor (api) {
+    constructor (api, settings) {
         this.api = api;
+        this.settings = settings;
     }
 
     _renderTalk(talk) {
@@ -17,7 +18,9 @@ class TalkLister {
             type: talk.attributes.type,
             level: talk.attributes.level,
             length: talk.attributes.length,
-            id: talk.id
+            id: talk.id,
+            view_link: `${this.settings.get('base_url')}/talks/${talk.id}`,
+            edit_link: `${this.settings.get('base_url')}/talks/${talk.id}/edit`
         });
 
         $(".talk-list > ul").prepend(rendered);
