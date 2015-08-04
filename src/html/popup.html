@@ -24,13 +24,13 @@
 
         <!-- Nav tabs -->
         <ul class="nav nav-tabs" role="tablist">
-            <li role="presentation"><a tabindex="-1" href="#talks" aria-controls="talks" role="tab" data-toggle="tab">Talks</a></li>
-            <li role="presentation" class="active"><a tabindex="-1" href="#bios" aria-controls="bios" role="tab" data-toggle="tab">Bios</a></li>
+            <li role="presentation" class="active"><a tabindex="-1" href="#talks" aria-controls="talks" role="tab" data-toggle="tab">Talks</a></li>
+            <li role="presentation"><a tabindex="-1" href="#bios" aria-controls="bios" role="tab" data-toggle="tab">Bios</a></li>
         </ul>
 
         <!-- Tab panes -->
         <div class="tab-content">
-            <div role="tabpanel" class="tab-pane" id="talks">
+            <div role="tabpanel" class="tab-pane active" id="talks">
 
                 <div class="talk-list">
                     <ul>
@@ -42,7 +42,7 @@
                     <button class="btn btn-default" id="go-to-options">Go to Options Page</button>
                 </div>
             </div>
-            <div role="tabpanel" class="tab-pane active" id="bios">
+            <div role="tabpanel" class="tab-pane" id="bios">
                 <div class="bio-list">
                     <ul>
                         <!-- bios -->
@@ -66,6 +66,12 @@
     <script type="text/html" id="pronto-talk-template">
         <li class="talk" data-talk-id="{{ id }}">
             <div class="talk-info">
+                <span class="actions">
+                    <ul>
+                        <li><a tabindex="-1" target="_blank" href="{{ view_link }}" data-toggle="tooltip" data-placement="top" title="View at Symposium"><i class="fa fa-eye"></i></a></li>
+                        <li><a tabindex="-1" target="_blank" href="{{ edit_link }}" data-toggle="tooltip" data-placement="top" title="Edit at Symposium"><i class="fa fa-pencil"></i></a></li>
+                    </ul>
+                </span>
                 <span class="title">{{ title }}</span>
                 <span class="info">{{ type }} / {{ level }} / {{ length }} mins</span>
             </div>
@@ -77,6 +83,7 @@
             <div>
                 <span class="actions">
                     <ul>
+                        <li><a class="btn-copy-bio" tabindex="-1" target="_blank" href="javascript:;" data-summary="{{ summary }}" data-toggle="tooltip" data-placement="top" title="Copy to Clipboard"><i class="fa fa-clipboard"></i></a></li>
                         <li><a tabindex="-1" target="_blank" href="{{ view_link }}" data-toggle="tooltip" data-placement="top" title="View at Symposium"><i class="fa fa-eye"></i></a></li>
                         <li><a tabindex="-1" target="_blank" href="{{ edit_link }}" data-toggle="tooltip" data-placement="top" title="Edit at Symposium"><i class="fa fa-pencil"></i></a></li>
                     </ul>
@@ -100,8 +107,8 @@
       -
       - [1]: https://developer.chrome.com/extensions/contentSecurityPolicy
      -->
-    <script src="../js/pronto-popup.js"></script>
     <script src="../js/bootstrap.js"></script>
+    <script src="../js/pronto-popup.js"></script>
 </body>
 
 </html>
