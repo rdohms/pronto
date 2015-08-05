@@ -14,7 +14,7 @@ class AuthenticationManager {
         this.loginDiv = $('.not_logged_in');
         this.loading = $('.loading');
 
-        this.userName = $('.info-fullname');
+        this.userName = $('#info-fullname');
         this.logoutBtn = $('#btn-logout');
         this.loginBtn = $('#btn-login');
         this.registerBtn = $('#btn-register');
