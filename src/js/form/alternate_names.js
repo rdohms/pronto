@@ -2,7 +2,7 @@ export default {
 
     alternateDataNames: {
         title: ['name', 'talk title'],
-        description: ['abstract', 'describe'],
+        description: ['abstract', 'describe', 'summary'],
         organizer_notes: ['notes', 'additional', 'why accept', 'comments'],
         level: ['audience'],
         type: ['talk type'],
