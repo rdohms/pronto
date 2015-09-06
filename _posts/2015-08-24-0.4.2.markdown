@@ -1,0 +1,6 @@
+---
+layout: post
+title:  "0.4.2"
+date:   2015-08-24
+---
+Pronto is now fully compatible with the ConFoo submission form.

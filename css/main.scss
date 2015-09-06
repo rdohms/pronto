@@ -23,6 +23,20 @@ $pronto-green-bg: #009966;
     }
 }
 
+#releasewrapper {
+
+    h2 {
+        .date {
+            font-size: 65%;
+            color: #9d9d9d;
+        }
+    }
+
+    p {
+        line-height: 1.4;
+    }
+}
+
 #install-intro {
 	padding-top: 50px;
     padding-bottom: 50px;

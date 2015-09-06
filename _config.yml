@@ -13,3 +13,4 @@ github_username:  rdohms
 # Build settings
 markdown: kramdown
 exclude: [vendor, package.json, gulpfile.js, Gemfile, Gemfile.lock, src, bower_components, node_modules]
+excerpt_separator: <!--more-->

@@ -1,0 +1,6 @@
+---
+layout: post
+title:  "0.4.1"
+date:   2015-08-05
+---
+Your name should properly show up in the options page now.

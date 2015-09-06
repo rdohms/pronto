@@ -2,7 +2,6 @@
 layout: default
 ---
 
-
 <section id="desc" name="desc"></section>
 <!-- INTRO WRAP -->
 <div id="intro">
@@ -114,22 +113,21 @@ layout: default
     </div> <!--/ .container -->
 </div><!--/ #introwrap -->
 
-<!-- <div class="home">
-
-  <h1 class="page-heading">Posts</h1>
-
-  <ul class="post-list">
-    {% for post in site.posts %}
-      <li>
-        <span class="post-meta">{{ post.date | date: "%b %-d, %Y" }}</span>
-
-        <h2>
-          <a class="post-link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
-        </h2>
-      </li>
-    {% endfor %}
-  </ul>
-
-  <p class="rss-subscribe">subscribe <a href="{{ "/feed.xml" | prepend: site.baseurl }}">via RSS</a></p>
-
-</div> -->
+<section id="releases" name="releases"></section>
+<!-- INTRO WRAP -->
+<div id="releasewrapper">
+    <div class="container">
+        <div class="row">
+            <h1 class="centered">Changelog</h1>
+            <br>
+            <br>
+            {% for post in site.posts %}
+            <div class="col-lg-3">
+                <h2>{{ post.title }} <span class="date">{{ post.date | date: "%b %-d, %Y" }}</span></h2>
+                <p class="pull-left">{{ post.content }}</p>
+            </div>
+            {% endfor %}
+        </div>
+        <br>
+    </div> <!--/ .container -->
+</div><!--/ #introwrap -->

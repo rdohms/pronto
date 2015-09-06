@@ -1,0 +1,11 @@
+---
+layout: post
+title:  "0.4.0"
+date:   2015-08-04
+---
+Minor release time!
+
+This release brings a revamp of our module structure, a new options page and a couple new features.
+
+* You can now run pronto! against a custom Symposium install, check out the options page.
+* You can now view, copy and inject your Bios from Symposium right througth pronto.
