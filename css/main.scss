@@ -1,0 +1,75 @@
+---
+# Only the main Sass file needs front matter (the dashes are enough)
+---
+// Import partials from `sass_dir` (defaults to `_sass`)
+@import
+        "bootstrap",
+        "pratt"
+;
+
+@charset "utf-8";
+
+$pronto-green: #009966;
+$pronto-green-bg: #009966;
+
+
+
+
+
+
+#intro {
+    h3 {
+        font-weight: bold;
+    }
+}
+
+#install-intro {
+	padding-top: 50px;
+    padding-bottom: 50px;
+    background-color: #d7d7d7;
+
+    h1, h2, h3 {
+        color: black;
+    }
+
+    a {
+        font-weight: bold;
+    }
+
+    a.btn {
+        color: #FFF !important;
+    }
+}
+
+#headerwrap {
+    background-image: -webkit-gradient(
+    	linear,
+    	left bottom,
+    	left top,
+    	color-stop(0, #009966),
+    	color-stop(1, #006E2E)
+    );
+    background-image: -o-linear-gradient(top, #009966 0%, #006E2E 100%);
+    background-image: -moz-linear-gradient(top, #009966 0%, #006E2E 100%);
+    background-image: -webkit-linear-gradient(top, #009966 0%, #006E2E 100%);
+    background-image: -ms-linear-gradient(top, #009966 0%, #006E2E 100%);
+    background-image: linear-gradient(to top, #009966 0%, #006E2E 100%);
+
+	padding-top: 60px;
+}
+
+.icon-credits {
+    font-size: 70%;
+}
+
+#footerwrap {
+    a {
+        color: #d9d9d9;
+    }
+}
+.made-with-code {
+    i {
+        font-weight: bold;
+        color: #0fa310
+    }
+}

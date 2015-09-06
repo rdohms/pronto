@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  {% include head.html %}
+
+  <body data-spy="scroll" data-offset="0" data-target="#navigation">
+
+    {% include navbar.html %}
+
+	{% include header.html %}
+
+    {{ content }}
+
+	{% include footer.html %}
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="{{ "/js/main.min.js" | prepend: site.baseurl }}"></script>
+	<script>
+	$('.carousel').carousel({
+	  interval: 3500
+	})
+	</script>
+  </body>
+</html>

@@ -1,69 +1,135 @@
-<!DOCTYPE html>
-<html lang="en-us">
-  <head>
-    <meta charset="UTF-8">
-    <title>Pronto by rdohms</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
-    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
-  </head>
-  <body>
-    <section class="page-header">
-      <h1 class="project-name">Pronto</h1>
-      <h2 class="project-tagline">Pronto! The blazing fast CfP submission tool.</h2>
-      <a href="https://github.com/rdohms/pronto" class="btn">View on GitHub</a>
-      <a href="https://github.com/rdohms/pronto/zipball/master" class="btn">Download .zip</a>
-      <a href="https://github.com/rdohms/pronto/tarball/master" class="btn">Download .tar.gz</a>
-    </section>
+---
+layout: default
+---
 
-    <section class="main-content">
-      <h2>
-<a id="pronto" class="anchor" href="#pronto" aria-hidden="true"><span class="octicon octicon-link"></span></a>Pronto!</h2>
 
-<p><a href="https://chrome.google.com/webstore/detail/pronto/ceppkbmiglldpkelkicajinlfdkbpihh"><img src="https://developer.chrome.com/webstore/images/ChromeWebStore_Badge_v2_206x58.png" alt="Available on the Chrome WebStore"></a></p>
+<section id="desc" name="desc"></section>
+<!-- INTRO WRAP -->
+<div id="intro">
+    <div class="container">
+        <div class="row centered">
+            <h1>Designed to make submitting easy</h1>
+            <br>
+            <br>
+            <div class="col-lg-4">
+                <img src="{{ "/images/symposium.png" | prepend: site.baseurl }}" alt="">
+                <h3>Uses <a href="http://symposiumapp.com/">Symposium</a></h3>
+                <p>A centralized place for all your talks, manage, publish and promote your talks.</p>
+            </div>
+            <div class="col-lg-4">
+                <img src="{{ "/images/click.png" | prepend: site.baseurl }}" alt="">
+                <h3>One Click Fill</h3>
+                <p>Click on a talk and let pronto fill the usual for fields for you, focus on adjusting, not copying</p>
+            </div>
+            <div class="col-lg-4">
+                <img src="{{ "/images/bios.png" | prepend: site.baseurl }}" alt="">
+                <h3>Bios</h3>
+                <p>Have all your bios at arm's length, quckly copy it and paste it where you need it.</p>
+            </div>
+        </div>
+        <br>
+        <hr>
+    </div> <!--/ .container -->
+</div><!--/ #introwrap -->
 
-<p>Pronto is a tool to facilitate the submission process to Calls for Papers. Its a chrome extension that will help you fill in the forms pulling data about your talks stored elsewhere.</p>
+<section id="about" name="about"></section>
+<div id="features">
+    <div class="container">
+        <div class="row">
+            <h1 class="centered">Tell me more</h1>
+            <br>
+            <br>
+            <div class="col-lg-6 centered">
+                <img class="centered" src="{{ "/images/placeit.png" | prepend: site.baseurl }}" alt="">
+            </div>
 
-<p>Our initial goal is to import talks from Symposium App (<a href="http://symposiumapp.com">symposiumapp.com</a>) and give you the option to rapid-fill the CfP form with data from that talk. It will attempt to figure out the right fields for the right information so it should be compatible with most CfP forms, not just OpenCFP.</p>
+            <div class="col-lg-6">
+            <!-- ACCORDION -->
+                <div class="accordion ac" id="accordion2">
+                    <div class="accordion-group">
+                        <div class="accordion-heading">
+                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">
+                            Why?
+                            </a>
+                        </div><!-- /accordion-heading -->
+                        <div id="collapseOne" class="accordion-body collapse in">
+                            <div class="accordion-inner">
+                            <p>Frequent speakers find themselves submitting many talks to many conferences. This is a manual process and its quite annoying to keep flipping from an app (Evernote, Google Keep, Symposium, Notepad..) back and forth copying and pasting pieces of the talk.</p>
+                            <p>Pronto! makes this process a one click process. You find your talk in the handy dropdown window, click on it and it will try to identify all the fields and fill them with your data.</p>
+                            <p>Once its done, just hit <b>submit</b>.</p>
+                            </div><!-- /accordion-inner -->
+                        </div><!-- /collapse -->
+                    </div><!-- /accordion-group -->
+                    <br>
 
-<p>It will provide a fair balance between flooding CfP's and avoiding the Copy/Paste process regular speakers need to go through everyday.</p>
 
-<h2>
-<a id="example" class="anchor" href="#example" aria-hidden="true"><span class="octicon octicon-link"></span></a>Example</h2>
+                     <div class="accordion-group">
+                        <div class="accordion-heading">
+                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseThree">
+                            Why not fully automated?
+                            </a>
+                        </div>
+                        <div id="collapseThree" class="accordion-body collapse">
+                            <div class="accordion-inner">
+                            <p>While Symposium has plans to integrate directly into CfP portals, Pronto gives you more control. Since it does not automatically submit data, it allows you to avoid the copy&paste step and focus only on adjusting the data for that specific conference.</p>
+                            <p>We believe submitting to a confernce should still be a thought out process, not fully automated and mechanical.</p>
+                            </div><!-- /accordion-inner -->
+                        </div><!-- /collapse -->
+                    </div><!-- /accordion-group -->
+                    <br>
+                </div><!-- Accordion -->
+            </div>
+        </div>
+    </div><!--/ .container -->
+</div><!--/ #features -->
 
-<p>This is a working example of the application filling a form with initial static sample data from symposium.</p>
+<section id="install" name="install"></section>
+<!-- INTRO WRAP -->
+<div id="install-intro">
+    <div class="container">
+        <div class="row centered">
+            <h1>Install it now!</h1>
+            <br>
+            <br>
+            <div class="col-lg-4">
+                <img src="{{ "/images/safari.png" | prepend: site.baseurl }}" alt="">
+                <h3>Safari</h3>
+                <p>Planned.</p>
+                <a href="https://github.com/rdohms/pronto/issues/23" class="btn btn-warning">vote for it</a>
+            </div>
+            <div class="col-lg-4" data-href="https://chrome.google.com/webstore/detail/pronto/ceppkbmiglldpkelkicajinlfdkbpihh">
+                <img src="{{ "/images/chrome.png" | prepend: site.baseurl }}" alt="">
+                <h3>Chrome</h3>
+                <p>Available in the Chrome Web Store!</p>
+                <a href="https://chrome.google.com/webstore/detail/pronto/ceppkbmiglldpkelkicajinlfdkbpihh" class="btn btn-success">install it</a>
+            </div>
+            <div class="col-lg-4">
+                <img src="{{ "/images/firefox.png" | prepend: site.baseurl }}" alt="">
+                <h3>Firefox</h3>
+                <p>Planned.</p>
+                <a href="https://github.com/rdohms/pronto/issues/24" class="btn btn-warning">vote for it</a>
+            </div>
+        </div>
+        <br>
+    </div> <!--/ .container -->
+</div><!--/ #introwrap -->
 
-<p><img src="https://raw.githubusercontent.com/rdohms/pronto/master/extension/resources/example-1.gif?raw=true" alt="Working sample"></p>
+<!-- <div class="home">
 
-<h2>
-<a id="install" class="anchor" href="#install" aria-hidden="true"><span class="octicon octicon-link"></span></a>Install</h2>
+  <h1 class="page-heading">Posts</h1>
 
-<p>Pronto! is currently only available on Google Chrome and can be installed on the <a href="https://chrome.google.com/webstore/detail/pronto/ceppkbmiglldpkelkicajinlfdkbpihh">WebStore</a>.</p>
+  <ul class="post-list">
+    {% for post in site.posts %}
+      <li>
+        <span class="post-meta">{{ post.date | date: "%b %-d, %Y" }}</span>
 
-<p>After installing it, you will see the <em>pronto! button</em> <img src="https://raw.githubusercontent.com/rdohms/pronto/master/extension/resources/icon16.png" alt="icon"> on your extension bar and upon clicking you may be prompted to visit the options page and configure your API token for SymposiumApp.</p>
+        <h2>
+          <a class="post-link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
+        </h2>
+      </li>
+    {% endfor %}
+  </ul>
 
-<p>The extension will guide you through the handshake process.</p>
+  <p class="rss-subscribe">subscribe <a href="{{ "/feed.xml" | prepend: site.baseurl }}">via RSS</a></p>
 
-<p>Once you have setup the api, clicking the button on the extension bar should list your talks</p>
-
-<p><img src="https://raw.githubusercontent.com/rdohms/pronto/master/extension/resources/talk-list.jpg" alt="list of talks"></p>
-
-<p>By clicking on the icon next to it should fill the form and show you a summary.</p>
-
-<p><img src="https://raw.githubusercontent.com/rdohms/pronto/master/extension/resources/summary.jpg" alt="summary">
-§</p>
-
-      <footer class="site-footer">
-        <span class="site-footer-owner"><a href="https://github.com/rdohms/pronto">Pronto</a> is maintained by <a href="https://github.com/rdohms">rdohms</a>.</span>
-
-        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
-      </footer>
-
-    </section>
-
-  
-  </body>
-</html>
-
+</div> -->
