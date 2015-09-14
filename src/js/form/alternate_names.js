@@ -1,11 +1,11 @@
 export default {
 
     alternateDataNames: {
-        title: ['name', 'talk title'],
-        description: ['abstract', 'describe', 'summary'],
-        organizer_notes: ['notes', 'additional', 'why accept', 'comments'],
+        title: ['name', 'talk title', 'título'],
+        description: ['abstract', 'describe', 'summary', 'descrição'],
+        organizer_notes: ['notes', 'additional', 'why accept', 'comments', 'Referências'],
         level: ['audience'],
-        type: ['talk type'],
+        type: ['talk type', 'categoria'],
         body: ['bio', 'about you', 'biography']
     },
 
