@@ -6,6 +6,7 @@ export default {
         organizer_notes: ['notes', 'additional', 'why accept', 'comments', 'Referências'],
         level: ['audience'],
         type: ['talk type', 'categoria'],
+        slides: ['slides', 'slides url'],
         body: ['bio', 'about you', 'biography']
     },
 
