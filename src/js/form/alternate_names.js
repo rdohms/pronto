@@ -5,6 +5,7 @@ export default {
         description: ['abstract', 'describe', 'summary'],
         organizer_notes: ['notes', 'additional', 'why accept', 'comments'],
         level: ['audience'],
+        slides: ['slides', 'slides url'],
         type: ['talk type'],
         body: ['bio', 'about you', 'biography']
     },
