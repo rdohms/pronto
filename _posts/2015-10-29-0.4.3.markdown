@@ -1,0 +1,6 @@
+---
+layout: post
+title:  "0.4.3"
+date:   2015-10-29
+---
+Pronto is now compatible with the new slides field in Symposium. (thanks @elazar)
