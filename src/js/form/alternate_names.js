@@ -7,7 +7,7 @@ export default {
         level: ['audience'],
         type: ['talk type', 'categoria'],
         slides: ['slides', 'slides url'],
-        body: ['bio', 'about you', 'biography']
+        body: ['bio', 'about you', 'biography', 'speaker bio']
     },
 
     alternateOptions: {
