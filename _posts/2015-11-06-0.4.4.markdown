@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "0.4.3"
+title:  "0.4.4"
 date:   2015-11-06
 ---
 Pronto will now be able to fill your Bio in OpenCFP (sponsored by @skoop)
