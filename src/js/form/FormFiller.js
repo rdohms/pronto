@@ -39,34 +39,48 @@ class FormFiller {
         	var $input = $(input);
         	var $elt = $input.parent();
         	var $label;
+
+            // Find label by using "for" attribute
+            if ($input.attr('id')) {
+                var $form = $input.closest('form');
+                var $for_label = $form.find('label[for="' + $input.attr('id') + '"]');
+                if ($for_label.length) {
+                    this.assignLabel($input, $for_label);
+                    return;
+                }
+            }
+
+            // Iterate elements to find label for field
         	while ($elt.find(':input').length === 1) {
-        		if ($elt.is('label')) {
-        			$label = $elt;
+
+                if ($elt.is('label')) {
+        			this.assignLabel($input, $elt);
         			break;
         		} else if ($elt.children('label').length) {
-        			$label = $elt.children('label').first();
+                    this.assignLabel($input, $elt.children('label').first());
         			break
         		}
+
         		$elt = $elt.parent();
         	}
 
-        	if ($label) {
-
-                let field = new FormField($input);
-
-                this.inputs.push({
-                    input: $input,
-                    label: $label.text(),
-                    keywords: this.stringToKeywords($label.text()).concat($label.text()),
-                    field: field
-                });
-
-                if (this.debug) {
-                    field.highlightLocated();
-                }
-        	}
         })
 
+    }
+
+    assignLabel($input, $label) {
+        let field = new FormField($input);
+
+        this.inputs.push({
+            input: $input,
+            label: $label.text(),
+            keywords: this.stringToKeywords($label.text()).concat($label.text()),
+            field: field
+        });
+
+        if (this.debug) {
+            field.highlightLocated();
+        }
     }
 
     stringToKeywords(label) {
