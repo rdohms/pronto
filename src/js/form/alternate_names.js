@@ -25,6 +25,6 @@ export default {
         }
     },
 
-    ignoredData: ['created_at', 'updated_at']
+    ignoredData: ['created_at', 'updated_at', 'public']
 
 };
