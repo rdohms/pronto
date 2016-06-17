@@ -25,7 +25,8 @@
     "storage",
     "clipboardWrite",
     "http://symp.oss.dev/",
-    "http://symposiumapp.com/"
+    "http://symposiumapp.com/",
+    "https://symposiumapp.com/"
   ],
   "web_accessible_resources": [
     "build/fonts/*",
