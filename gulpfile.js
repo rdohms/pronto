@@ -21,6 +21,8 @@ var fs = require('fs');
 var buffer = require('vinyl-buffer');
 var jscs = require('gulp-jscs');
 var jshint = require('gulp-jshint');
+var imagemin = require('gulp-imagemin');
+var imageResize = require('gulp-image-resize');
 
 var knownOptions = {
   string: ['rel'],
@@ -42,7 +44,7 @@ var onError = function(err) {
  * META TASKS
  * ################################################################ */
 
-gulp.task('default', ['current_mode', 'config:load', 'bower', 'build:js', 'build:css', 'build:html']);
+gulp.task('default', ['current_mode', 'config:load', 'bower', 'build:js', 'build:css', 'build:html', 'icons']);
 
 gulp.task('current_mode', function() {
     console.log((_is_dev_mode)? 'Development Mode':'Production Mode');
@@ -67,6 +69,7 @@ gulp.task('watch', ['default'], function() {
     gulp.watch('./src/**/*.js', ['build:js']);
     gulp.watch('./config/**/*.js', ['build:js']);
     gulp.watch('./src/**/*.html', ['build:html']);
+    gulp.watch('./src/images/*.png', ['icons']);
 });
 
 /* ################################################################
@@ -231,9 +234,48 @@ gulp.task('minify:css', ['scss'], function() {
 });
 
 /* ################################################################
+ * Images
+ * ################################################################ */
+
+gulp.task('icons', ['icons:16', 'icons:48', 'icons:128']);
+
+gulp.task('icons:16', function () {
+    gulp.src('src/images/logo.png')
+     .pipe(imageResize({
+       width : 16,
+       height : 16,
+       imageMagick: true
+     }))
+     .pipe(rename("icon16.png"))
+     .pipe(gulp.dest('extension/resources'));
+});
+
+gulp.task('icons:48', function () {
+    gulp.src('src/images/logo.png')
+     .pipe(imageResize({
+       width : 48,
+       height : 48,
+       imageMagick: true
+     }))
+     .pipe(rename("icon48.png"))
+     .pipe(gulp.dest('extension/resources'));
+});
+
+gulp.task('icons:128', function () {
+    gulp.src('src/images/logo.png')
+     .pipe(imageResize({
+       width : 128,
+       height : 128,
+       imageMagick: true
+     }))
+     .pipe(rename("icon128.png"))
+     .pipe(gulp.dest('extension/resources'));
+});
+
+/* ################################################################
  * Packaging
  * ################################################################ */
-gulp.task('package:build', ['package:bump'], function() {
+gulp.task('package:build', ['icons', 'package:bump'], function() {
     if (_is_dev_mode) {
         return;
     }
