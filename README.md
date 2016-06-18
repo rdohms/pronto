@@ -10,7 +10,7 @@ It will provide a fair balance between flooding CfP's and avoiding the Copy/Past
 
 This is a working example of the application filling a form with initial static sample data from symposium.
 
-![Working sample](extension/resources/example-1.gif?raw=true)
+![Working sample](src/images/resources/example-1.gif?raw=true)
 
 ## Install
 
@@ -22,8 +22,8 @@ The extension will guide you through the handshake process.
 
 Once you have setup the api, clicking the button on the extension bar should list your talks
 
-![list of talks](extension/resources/talk-list.jpg)
+![list of talks](src/images/resources/talk-list.jpg)
 
 By clicking on the icon next to it should fill the form and show you a summary.
 
-![summary](extension/resources/summary.jpg)
+![summary](src/images/resources/summary.jpg)

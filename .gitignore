@@ -8,3 +8,4 @@ npm-debug.log
 extension.crx
 extension.pem
 extension.crx.zip
+extension/resources/*
