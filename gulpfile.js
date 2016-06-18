@@ -237,10 +237,14 @@ gulp.task('minify:css', ['scss'], function() {
  * Images
  * ################################################################ */
 
+var source_icon = _is_dev_mode
+        ? 'src/images/logo-dev.png'
+        : 'src/images/logo.png';
+
 gulp.task('icons', ['icons:16', 'icons:48', 'icons:128']);
 
 gulp.task('icons:16', function () {
-    gulp.src('src/images/logo.png')
+    gulp.src(source_icon)
      .pipe(imageResize({
        width : 16,
        height : 16,
@@ -251,7 +255,7 @@ gulp.task('icons:16', function () {
 });
 
 gulp.task('icons:48', function () {
-    gulp.src('src/images/logo.png')
+    gulp.src(source_icon)
      .pipe(imageResize({
        width : 48,
        height : 48,
@@ -262,7 +266,7 @@ gulp.task('icons:48', function () {
 });
 
 gulp.task('icons:128', function () {
-    gulp.src('src/images/logo.png')
+    gulp.src(source_icon)
      .pipe(imageResize({
        width : 128,
        height : 128,
