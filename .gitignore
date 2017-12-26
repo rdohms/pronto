@@ -2,6 +2,7 @@ extension/build/
 bower_components/
 node_modules/
 samples/
+config/dev.js
 config/production.js
 dist/
 npm-debug.log

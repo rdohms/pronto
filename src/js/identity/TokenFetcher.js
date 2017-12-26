@@ -114,7 +114,7 @@ class TokenFetcher {
     }
 
     _getAccessTokenUrl(code) {
-        return `${this.base_url}/oauth/access-token`;
+        return `${this.base_url}/oauth/token`;
     }
 
     _getCodeExchangeData(code) {
