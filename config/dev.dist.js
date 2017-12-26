@@ -1,7 +1,7 @@
 export default {
     base_url: "http://symp.oss.dev",
-    client_id: "1",
-    client_secret: "hoihfoipqwe",
+    client_id: "client",
+    client_secret: "secret",
     debug: true,
     analytics: false
 };
