@@ -1,0 +1,80 @@
+/* ─── Pronto! Injected Styles ────────────────────────────────────────────── */
+/* These styles are injected into third-party CfP pages. */
+/* Use high-specificity selectors to avoid being overridden by host page CSS. */
+
+/* ─── Field highlight states ─────────────────────────────────────────────── */
+
+input.pronto-filled,
+textarea.pronto-filled,
+select.pronto-filled {
+  outline: 2px solid #4caf82 !important;
+  outline-offset: 2px !important;
+  background-color: rgba(76, 175, 130, 0.08) !important;
+  transition: outline 200ms ease, background-color 200ms ease !important;
+}
+
+input.pronto-skipped,
+textarea.pronto-skipped,
+select.pronto-skipped {
+  outline: 2px solid #f5a623 !important;
+  outline-offset: 2px !important;
+  background-color: rgba(245, 166, 35, 0.08) !important;
+}
+
+input.pronto-located,
+textarea.pronto-located,
+select.pronto-located {
+  outline: 2px dashed #6c63ff !important;
+  outline-offset: 2px !important;
+}
+
+/* ─── Summary banner ─────────────────────────────────────────────────────── */
+
+#pronto-summary {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 2147483647; /* maximum z-index */
+  background: #1e1f26;
+  border: 1px solid rgba(108, 99, 255, 0.4);
+  border-radius: 12px;
+  padding: 14px 18px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 260px;
+  max-width: 340px;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif !important;
+  transform: translateY(0);
+  opacity: 1;
+  transition: opacity 400ms ease, transform 400ms ease;
+}
+
+#pronto-summary.pronto-summary--hidden {
+  opacity: 0;
+  transform: translateY(12px);
+  pointer-events: none;
+}
+
+#pronto-summary.pronto-summary--visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.pronto-header {
+  font-size: 13px;
+  font-weight: 700;
+  color: #a89fff;
+  letter-spacing: 0.5px;
+}
+
+.pronto-filled-info {
+  font-size: 12px;
+  color: #4caf82;
+}
+
+.pronto-skipped-info {
+  font-size: 12px;
+  color: #f5a623;
+}

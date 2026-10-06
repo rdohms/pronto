@@ -1,56 +1,79 @@
 <!doctype html>
-<html>
+<html lang="en">
 
 <head>
-    <title id="title"></title>
-
-    <link id="favicon" rel="icon" href="">
-    <link rel="stylesheet" href="../css/font-awesome.css">
-    <link rel="stylesheet" href="../css/options.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pronto! — Options</title>
+  <link rel="stylesheet" href="../css/options.css">
 </head>
 
 <body>
 
-    <h3>Authentication</h3>
+  <h2>
+    <svg viewBox="0 0 24 24" style="width:22px;height:22px;vertical-align:middle;fill:currentColor;margin-right:8px" aria-hidden="true">
+      <path d="M12 1a4 4 0 0 1 4 4v7a4 4 0 0 1-8 0V5a4 4 0 0 1 4-4zm-1 18.93V22h2v-2.07A8 8 0 0 0 20 12h-2a6 6 0 0 1-12 0H4a8 8 0 0 0 7 7.93z"/>
+    </svg>
+    Pronto! Options
+  </h2>
 
-    <div class="logged_in">
-        <p>You are currently logged in as <span id="info-fullname"></span></p>
-        <button id="btn-logout" class="btn btn-danger">Logout</button>
+  <!-- Authentication section -->
+  <section aria-labelledby="auth-heading">
+    <h3 id="auth-heading">Authentication</h3>
+
+    <div class="logged_in" style="display:none">
+      <p>You are currently logged in as <strong id="info-fullname"></strong></p>
+      <button id="btn-logout" class="btn btn-danger">Logout</button>
     </div>
 
     <div class="not_logged_in">
-        <button id="btn-login" class="btn btn-success">Login</button>
-        or
-        <button id="btn-register" class="btn btn-default">Register at Symposiumapp.com</button>
+      <button id="btn-login" class="btn btn-success">Login with Symposium</button>
+      <span style="margin: 0 8px; color: var(--color-text-muted)">or</span>
+      <button id="btn-register" class="btn btn-default">Register at Symposiumapp.com</button>
     </div>
 
-    <div class="loading">
-        <i class="fa fa-spin fa-gear" style="font-size: 150%;"></i> talking to API, hang on please...
+    <div class="loading" style="display:none">
+      <span class="spinner" style="
+        display:inline-block;width:16px;height:16px;
+        border:2px solid #3d4065;border-top-color:#6c63ff;
+        border-radius:50%;animation:spin 0.7s linear infinite
+      "></span>
+      Talking to API, hang on please...
     </div>
 
-    <h3>Custom Symposium Install</h3>
+    <style>@keyframes spin { to { transform: rotate(360deg); } }</style>
+  </section>
 
-    <form>
-        <span class="help-block">If you wish to use a self hosted version of Symposium, please adjust the values below to your configurations.</span>
+  <!-- Custom install section -->
+  <section aria-labelledby="custom-install-heading">
+    <h3 id="custom-install-heading">Custom Symposium Install</h3>
 
-        <div class="form-group has-feedback">
-            <label for="base_url">Base Url</label>
-            <input type="text" class="form-control" id="base_url" placeholder="https://symposiumapp.com">
-            <span class="fa form-control-feedback"></span>
-        </div>
-        <div class="form-group has-feedback">
-            <label for="client_id">Client ID</label>
-            <input type="text" class="form-control" id="client_id" placeholder="">
-            <span class="fa form-control-feedback"></span>
-        </div>
-        <div class="form-group has-feedback">
-            <label for="client_secret">Client Secret</label>
-            <input type="text" class="form-control" id="client_secret" placeholder="">
-            <span class="fa form-control-feedback"></span>
-        </div>
+    <form id="options-form" novalidate>
+      <span class="help-block">
+        If you use a self-hosted version of Symposium, adjust the values below to match your configuration.
+      </span>
+
+      <div class="form-group">
+        <label for="base_url">Base URL</label>
+        <input type="text" class="form-control" id="base_url" placeholder="https://symposiumapp.com">
+        <span class="form-control-feedback" aria-hidden="true"></span>
+      </div>
+
+      <div class="form-group">
+        <label for="client_id">Client ID</label>
+        <input type="text" class="form-control" id="client_id" placeholder="">
+        <span class="form-control-feedback" aria-hidden="true"></span>
+      </div>
+
+      <div class="form-group">
+        <label for="client_secret">Client Secret</label>
+        <input type="text" class="form-control" id="client_secret" placeholder="">
+        <span class="form-control-feedback" aria-hidden="true"></span>
+      </div>
     </form>
+  </section>
 
-    <script src="../js/pronto-options.js"></script>
+  <script type="module" src="../js/pronto-options.js"></script>
 </body>
 
 </html>

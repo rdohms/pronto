@@ -1,43 +1,32 @@
 {
   "name": "dms-cfp",
   "version": "0.4.10",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
+  "description": "Chrome extension to auto-fill Call for Paper submission forms from SymposiumApp",
   "author": "Rafael Dohms <rafael@doh.ms>",
+  "private": true,
+  "scripts": {
+    "icons": "node scripts/generate-icons.mjs",
+    "dev": "vite build --watch --mode development",
+    "build": "vite build",
+    "preview": "vite build --mode development",
+    "package": "npm run build && node scripts/package.mjs",
+    "test": "vitest",
+    "test:run": "vitest run",
+    "typecheck": "tsc --noEmit"
+  },
   "devDependencies": {
-    "babel-eslint": "^3.1.26",
-    "babelify": "^6.1.2",
-    "browserify": "^10.2.3",
-    "clipboard-tool": "^1.0.6",
-    "debug": "^3.1.0",
-    "del": "^1.1.1",
-    "fuzzy": "^0.1.0",
-    "gulp": "^3.8.11",
-    "gulp-babel": "^5.1.0",
-    "gulp-bower": "0.0.10",
-    "gulp-bump": "^0.3.1",
-    "gulp-concat": "^2.5.2",
-    "gulp-image-resize": "^0.8.0",
-    "gulp-imagemin": "^3.0.1",
-    "gulp-jscs": "^1.6.0",
-    "gulp-jshint": "^1.11.2",
-    "gulp-minify-css": "^1.0.0",
-    "gulp-plumber": "^1.0.0",
-    "gulp-rename": "^1.2.2",
-    "gulp-sass": "^2",
-    "gulp-sourcemaps": "^1.5.1",
-    "gulp-zip": "^3.0.2",
-    "jquery": "^2.1.4",
-    "jquery.directive.js": "^1.0.1",
-    "jscs": "^1.13.1",
-    "jshint": "^2.8.0",
-    "merge-stream": "^0.1.7",
-    "minimist": "^1.1.1",
-    "mustache": "^2.1.0",
-    "system": "^1.0.2",
-    "underscore": "^1.8.3",
-    "vinyl-buffer": "^1.0.0",
-    "vinyl-source-stream": "^1.1.0"
+    "@types/chrome": "^0.0.268",
+    "@types/mustache": "^4.2.5",
+    "@vitest/coverage-v8": "^1.6.0",
+    "@vitest/ui": "^1.6.0",
+    "jsdom": "^24.0.0",
+    "typescript": "^5.4.5",
+    "vite": "^5.2.11",
+    "vite-tsconfig-paths": "^6.1.1",
+    "vitest": "^1.6.0"
+  },
+  "dependencies": {
+    "fuzzy": "^0.1.3",
+    "mustache": "^4.2.0"
   }
 }

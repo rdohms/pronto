@@ -1,5 +1,5 @@
 {
-  "manifest_version": 2,
+  "manifest_version": 3,
   "name": "Pronto!",
   "short_name": "pronto",
   "description": "Simplify Call for Paper submissions by avoiding continuous copy & paste, and auto-filling form from talks stored in symposiumapp.com",
@@ -11,26 +11,33 @@
   },
   "author": "Rafael Dohms <rafael@doh.ms>",
   "homepage_url": "http://rdohms.github.io/pronto",
-  "browser_action": {
+  "action": {
     "default_icon": "resources/icon48.png",
     "default_popup": "build/html/popup.html"
   },
   "options_ui": {
-    "page": "build/html/options.html",
-    "chrome_style": true
+    "page": "build/html/options.html"
   },
   "permissions": [
     "activeTab",
     "identity",
     "storage",
     "clipboardWrite",
-    "http://symp.oss.dev/",
-    "http://symposiumapp.com/",
-    "https://symposiumapp.com/"
+    "scripting"
+  ],
+  "host_permissions": [
+    "http://symp.oss.dev/*",
+    "http://symposiumapp.com/*",
+    "https://symposiumapp.com/*",
+    "https://www.google-analytics.com/*"
   ],
   "web_accessible_resources": [
-    "build/fonts/*",
-    "resources/"
+    {
+      "resources": ["build/fonts/*", "resources/*"],
+      "matches": ["<all_urls>"]
+    }
   ],
-  "content_security_policy": "script-src 'self' https://www.google-analytics.com; object-src 'self'"
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'self'"
+  }
 }
