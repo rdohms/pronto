@@ -1,114 +1,147 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
-    <title>Getting Started Extension's Popup</title>
-    <link rel="stylesheet" href="../css/popup.css">
-    <link rel="stylesheet" href="../css/font-awesome.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pronto!</title>
+  <link rel="stylesheet" href="../css/popup.css">
 </head>
 
-<body class="no-select">
-    <nav class="navbar navbar-default">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <span class="navbar-brand" href="http://rdohms.github.io/pronto">
-                    <img alt="Pronto!" src="../../resources/icon48.png">
-                </span>
-            </div>
-        </div>
-    </nav>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar">
+    <span class="navbar-brand">
+      <img alt="Pronto!" src="../../resources/icon48.png">
+      Pronto!
+    </span>
+  </nav>
 
-    <div class="content">
+  <!-- Loading indicator (shared between talks & bios) -->
+  <span class="loading-warning" style="display:none">
+    <span class="spinner"></span>
+    Loading...
+  </span>
 
-        <span class="loading-warning"><i class="fa fa-cog fa-spin"></i></span>
+  <!-- Tab navigation -->
+  <nav class="tab-nav" role="tablist" aria-label="Content type">
+    <button id="tab-btn-talks" class="tab-nav__item active" role="tab"
+      aria-selected="true" aria-controls="tab-talks">
+      <!-- Mic icon -->
+      <svg viewBox="0 0 24 24" class="icon" aria-hidden="true">
+        <path d="M12 1a4 4 0 0 1 4 4v7a4 4 0 0 1-8 0V5a4 4 0 0 1 4-4zm-1 18.93V22h2v-2.07A8 8 0 0 0 20 12h-2a6 6 0 0 1-12 0H4a8 8 0 0 0 7 7.93z"/>
+      </svg>
+      Talks
+    </button>
+    <button id="tab-btn-bios" class="tab-nav__item" role="tab"
+      aria-selected="false" aria-controls="tab-bios">
+      <!-- Person icon -->
+      <svg viewBox="0 0 24 24" class="icon" aria-hidden="true">
+        <path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/>
+      </svg>
+      Bios
+    </button>
+  </nav>
 
-        <!-- Nav tabs -->
-        <ul class="nav nav-tabs" role="tablist">
-            <li role="presentation" class="active"><a tabindex="-1" href="#talks" aria-controls="talks" role="tab" data-toggle="tab">Talks</a></li>
-            <li role="presentation"><a tabindex="-1" href="#bios" aria-controls="bios" role="tab" data-toggle="tab">Bios</a></li>
-        </ul>
-
-        <!-- Tab panes -->
-        <div class="tab-content">
-            <div role="tabpanel" class="tab-pane active" id="talks">
-
-                <div class="talk-list">
-                    <ul>
-                        <!-- talks -->
-                    </ul>
-                </div>
-                <div class="options-alert">
-                    <p>We need to authenticate you with Symposium to grab your talk list.</p>
-                    <button class="btn btn-default" id="go-to-options">Go to Options Page</button>
-                </div>
-            </div>
-            <div role="tabpanel" class="tab-pane" id="bios">
-                <div class="bio-list">
-                    <ul>
-                        <!-- bios -->
-                    </ul>
-                </div>
-            </div>
-        </div>
+  <!-- Tab: Talks -->
+  <div id="tab-talks" class="tab-panel active" role="tabpanel" aria-labelledby="tab-btn-talks">
+    <div class="talk-list">
+      <ul><!-- talks rendered here --></ul>
     </div>
+    <div class="options-alert" style="display:none">
+      <p>We need to authenticate you with Symposium to grab your talk list.</p>
+      <button id="go-to-options" class="btn btn-primary">Go to Options Page</button>
+    </div>
+  </div>
 
-    <footer>
-        <div class="row">
-            <div class="col-xs-6">Made with <i class="fa fa-code"></i> by <a href="http://doh.ms" target="_blank" tabindex="-1">Rafael Dohms</a>.</div>
-            <div class="col-xs-6 pull-right">
-                <ul class="list-inline pull-right" <li><a href="http://symposiumapp.com/">Go to SymposiumApp</a></li>
-                    <li><a href="https://github.com/rdohms/pronto/issues" target="_blank" tabindex="-1"><i class="fa fa-bug"></i> Report bugs</a></li>
-                </ul>
-            </div>
-        </div>
-    </footer>
+  <!-- Tab: Bios -->
+  <div id="tab-bios" class="tab-panel" role="tabpanel" aria-labelledby="tab-btn-bios">
+    <div class="bio-list">
+      <ul><!-- bios rendered here --></ul>
+    </div>
+  </div>
 
-    <script type="text/html" id="pronto-talk-template">
-        <li class="talk" data-talk-id="{{ id }}">
-            <div class="talk-info">
-                <span class="actions">
-                    <ul>
-                        <li><a tabindex="-1" target="_blank" href="{{ view_link }}" data-toggle="tooltip" data-placement="top" title="View at Symposium"><i class="fa fa-eye"></i></a></li>
-                        <li><a tabindex="-1" target="_blank" href="{{ edit_link }}" data-toggle="tooltip" data-placement="top" title="Edit at Symposium"><i class="fa fa-pencil"></i></a></li>
-                    </ul>
-                </span>
-                <span class="title">{{ title }}</span>
-                <span class="info">{{ type }} / {{ level }} / {{ length }} mins</span>
-            </div>
-        </li>
-    </script>
+  <!-- Footer -->
+  <footer>
+    <span>Made with &#9829; by <a href="http://doh.ms" target="_blank">Rafael Dohms</a></span>
+    <ul>
+      <li><a href="http://symposiumapp.com/" target="_blank">SymposiumApp</a></li>
+      <li><a href="https://github.com/rdohms/pronto/issues" target="_blank">
+        <!-- Bug icon -->
+        <svg viewBox="0 0 24 24" class="icon" aria-label="Report bugs">
+          <path d="M20 8h-2.81a5.985 5.985 0 0 0-1.82-1.96L17 4.41 15.59 3l-2.17 2.17a6.002 6.002 0 0 0-2.83 0L8.41 3 7 4.41l1.62 1.63C7.88 6.55 7.26 7.22 6.81 8H4v2h2.09c-.05.33-.09.66-.09 1v1H4v2h2v1c0 .34.04.67.09 1H4v2h2.81A5.98 5.98 0 0 0 12 21a5.98 5.98 0 0 0 5.19-3H20v-2h-2.09c.05-.33.09-.66.09-1v-1h2v-2h-2v-1c0-.34-.04-.67-.09-1H20V8zm-6 8h-4v-2h4v2zm0-4h-4v-2h4v2z"/>
+        </svg>
+        Bugs
+      </a></li>
+    </ul>
+  </footer>
 
-    <script type="text/html" id="pronto-bio-template">
-        <li class="bio" data-bio-id="{{ id }}">
-            <div>
-                <span class="actions">
-                    <ul>
-                        <li><a class="btn-copy-bio" tabindex="-1" target="_blank" href="javascript:;" data-summary="{{ summary }}" data-toggle="tooltip" data-placement="top" title="Copy to Clipboard"><i class="fa fa-clipboard"></i></a></li>
-                        <li><a tabindex="-1" target="_blank" href="{{ view_link }}" data-toggle="tooltip" data-placement="top" title="View at Symposium"><i class="fa fa-eye"></i></a></li>
-                        <li><a tabindex="-1" target="_blank" href="{{ edit_link }}" data-toggle="tooltip" data-placement="top" title="Edit at Symposium"><i class="fa fa-pencil"></i></a></li>
-                    </ul>
-                </span>
-                <span class="title">{{ nickname }}</span>
-                <span class="summary">{{ short_description }}</span>
-            </div>
-        </li>
-    </script>
+  <!-- Native <template> for a talk list item -->
+  <template id="pronto-talk-template">
+    <li class="talk" data-talk-id="">
+      <div class="talk-info">
+        <span class="title"></span>
+        <span class="info"></span>
+      </div>
+      <div class="actions">
+        <a class="action-view" href="#" target="_blank" title="View at Symposium" tabindex="-1">
+          <svg viewBox="0 0 24 24" aria-label="View">
+            <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/>
+          </svg>
+        </a>
+        <a class="action-edit" href="#" target="_blank" title="Edit at Symposium" tabindex="-1">
+          <svg viewBox="0 0 24 24" aria-label="Edit">
+            <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04a1 1 0 0 0 0-1.41l-2.34-2.34a1 1 0 0 0-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/>
+          </svg>
+        </a>
+      </div>
+    </li>
+  </template>
 
-    <script type="text/html" id="pronto-talk-error-template">
-        <li class="error">
-            <div class="message">{{ message }}</div>
-            <div class="details">{{ details }}</div>
-        </li>
-    </script>
+  <!-- Native <template> for a bio list item -->
+  <template id="pronto-bio-template">
+    <li class="bio" data-bio-id="">
+      <div class="bio-info">
+        <span class="title"></span>
+        <span class="summary"></span>
+      </div>
+      <div class="actions">
+        <button class="btn-copy-bio" data-summary="" title="Copy to clipboard" tabindex="-1" type="button">
+          <svg viewBox="0 0 24 24" aria-label="Copy">
+            <path d="M16 1H4a2 2 0 0 0-2 2v14h2V3h12V1zm3 4H8a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2zm0 16H8V7h11v14z"/>
+          </svg>
+        </button>
+        <a class="action-view" href="#" target="_blank" title="View at Symposium" tabindex="-1">
+          <svg viewBox="0 0 24 24" aria-label="View">
+            <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/>
+          </svg>
+        </a>
+        <a class="action-edit" href="#" target="_blank" title="Edit at Symposium" tabindex="-1">
+          <svg viewBox="0 0 24 24" aria-label="Edit">
+            <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04a1 1 0 0 0 0-1.41l-2.34-2.34a1 1 0 0 0-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/>
+          </svg>
+        </a>
+      </div>
+    </li>
+  </template>
 
-    <!--
-      - JavaScript and HTML must be in separate files: see our Content Security
-      - Policy documentation[1] for details and explanation.
-      -
-      - [1]: https://developer.chrome.com/extensions/contentSecurityPolicy
-     -->
-    <script src="../js/bootstrap.js"></script>
-    <script src="../js/pronto-popup.js"></script>
+  <!-- Native <template> for a talk error item -->
+  <template id="pronto-talk-error-template">
+    <li class="error">
+      <div class="message"></div>
+      <div class="details"></div>
+    </li>
+  </template>
+
+  <!-- Native <template> for a bio error item -->
+  <template id="pronto-bio-error-template">
+    <li class="error">
+      <div class="message"></div>
+      <div class="details"></div>
+    </li>
+  </template>
+
+  <script type="module" src="../js/pronto-popup.js"></script>
 </body>
 
 </html>

@@ -1,12 +1,10 @@
 extension/build/
-bower_components/
 node_modules/
-samples/
-config/dev.js
-config/production.js
 dist/
+dist-types/
+.env.local
+.env.*.local
 npm-debug.log
 extension.crx
 extension.pem
 extension.crx.zip
-extension/resources/*
